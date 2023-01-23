@@ -3,19 +3,18 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button } from 'react-native';
 
-class TableauBord extends React.Component {
+class Exercice extends React.Component {
     render() {
     // const navigation = useNavigation();
 
     return (
       <View>
-        <Text>New text</Text>
+        <Text>Add friends here!</Text>
 
-        <Button title="Go to lessons" onPress={() => this.props.navigation.navigate('Lesson')} />
-        <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Exercice')} />
+        <Button title="TB" onPress={() => this.props.navigation.navigate('TableauBord')} />
       </View>
     );
   }
 }
 
-export default TableauBord;
+export default Exercice;

@@ -9,7 +9,7 @@ class TableauBord extends React.Component {
 
     return (
       <View>
-        <Text>New text</Text>
+        <Text>Bienvenu [Prénom]</Text>
 
         <Button title="Go to lessons" onPress={() => this.props.navigation.navigate('Lesson')} />
         <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Exercice')} />

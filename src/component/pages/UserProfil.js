@@ -3,6 +3,7 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, Image, TextInput, StyleSheet } from 'react-native';
 import IMGUser from '../../assets/user.jpg'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const imgUser = Image.resolveAssetSource(IMGUser).uri;
 
@@ -27,7 +28,13 @@ const styles = StyleSheet.create({
     fixToText: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-    },
+    }, 
+
+    separator: {
+        marginVertical: 8,
+        borderBottomColor: '#737373',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      },
   });
 
 class UserProfil extends React.Component {
@@ -35,7 +42,7 @@ class UserProfil extends React.Component {
     // const navigation = useNavigation();
 
     return (
-      <View>
+      <ScrollView>
 
         <Image source={{uri: imgUser}} style={styles.tinyLogo} />
 
@@ -53,7 +60,11 @@ class UserProfil extends React.Component {
             <Button disabled title="Valider" />
         </View>
 
-      </View>
+        <View style={styles.separator} />
+
+        <Button color='#d10000' title="Déconnexion" />
+
+      </ScrollView>
     );
   }
 }

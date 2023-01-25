@@ -9,12 +9,14 @@ const TableauBord = () => {
     const navigation = useNavigation();
     const imgPlanning = Image.resolveAssetSource(ImagePlannig).uri;
 
+    // const datePlanning = newDate().getDate();
+
     return (
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Planning')}>
           <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 10}}>
             <Image source={{uri: imgPlanning}} style={{width: '80%', height: 200}} />
-            <Text style={{position: 'absolute'}}>Planning</Text>
+            {/* <Text style={{position: 'absolute'}}>{datePlanning}</Text> */}
           </View>
         </TouchableOpacity>
 

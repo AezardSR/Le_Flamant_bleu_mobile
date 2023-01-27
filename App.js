@@ -5,13 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChalkboard, faGraduationCap, faHouse, faGear } from '@fortawesome/free-solid-svg-icons';
-import {  } from '@fortawesome/free-solid-svg-icons';
 // import { createDrawerNavigator } from '@react-navigation/drawer';
 import TableauBord from './src/component/pages/TableauBord.js';
 import Lesson from './src/component/pages/Lesson.js';
 import Exercice from './src/component/pages/Exercice.js';
 import UserProfil from './src/component/pages/UserProfil.js';
 import Plannig from './src/component/pages/Planning.js';
+import AddAppointments from './src/component/features/AddAppointments.js';
 
 function MenuFooter() {
 
@@ -73,6 +73,7 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen name="Footer" component={MenuFooter} options={{ headerShown: false }} />
           <Stack.Screen name="Planning" component={Plannig} />
+          <Stack.Screen name="AddAppointments" component={AddAppointments} />
         </Stack.Navigator>
 
       </NavigationContainer>

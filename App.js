@@ -4,9 +4,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { createDrawerNavigator } from '@react-navigation/drawer';
-import TableauBord from './src/component/pages/TableauBord.js';
-import Lesson from './src/component/pages/Lesson.js';
-import Exercice from './src/component/pages/Exercice.js';
+import TableauBord from './src/pages/TableauBord.js';
+import Lesson from './src/pages/Lesson.js';
+import Exercice from './src/pages/Exercice.js';
 
 const App = () => {
 

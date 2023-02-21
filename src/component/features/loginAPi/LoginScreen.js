@@ -5,6 +5,7 @@ import { ApiContext } from './ApiContext';
 
 
 
+
 export default function LoginScreen({setToken}) {
   const {login, user} = useContext(ApiContext);
   const [mail, setMail] = useState();
@@ -12,8 +13,6 @@ export default function LoginScreen({setToken}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(mail)
-    console.log(password)
     login({
         mail,
         password
@@ -21,9 +20,10 @@ export default function LoginScreen({setToken}) {
   }
 
   return (
-    <View>
-      <TextInput style={styles.input} onChangeText={e => setMail(e)} placeholder='Mail'></TextInput>
-      <TextInput style={styles.input} onChangeText={e => setPassword(e)} placeholder='Mot de passe'></TextInput>
+    <View style={styles.container}>
+      <Image style={styles.image} source={require('../../../assets/images/logo_la_manu.png')} />
+      <TextInput style={styles.inputView} onChangeText={e => setMail(e)} placeholder='Mail'></TextInput>
+      <TextInput secureTextEntry={true} style={styles.inputView} onChangeText={e => setPassword(e)} placeholder='Mot de passe'></TextInput>
       <Button onPress={handleSubmit} title='Connexion'/>
     </View>
   )
@@ -31,10 +31,31 @@ export default function LoginScreen({setToken}) {
  
 
 const styles = StyleSheet.create({
-  input: {
-    height: 50,
-    margin: 12,
-    borderWidth: 1,
+  inputView: {
+    backgroundColor: "#f8f8f8",
+    borderRadius: 30,
+    width: "80%",
+    height: 45,
+    marginBottom: 20,
     padding: 10,
+    alignItems: "center",
   },
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+  },
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+     },
+     image :{
+      marginBottom: 40,
+      width: 250,
+      height: 250,
+
+    }
 })

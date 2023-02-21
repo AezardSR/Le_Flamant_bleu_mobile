@@ -7,7 +7,8 @@ import { ApiContext } from '../features/loginAPi/ApiContext';
 
 export default function TableauBord() {
     const {user} = useContext(ApiContext);
-    console.log(user, "user");
+    console.log(user, "user tb");
+
 
     return (
       <View>

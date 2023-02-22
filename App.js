@@ -1,20 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {Component, useContext } from 'react';
+import 'react-native-gesture-handler';
+import { ApiContext, ApiProvider } from './src/component/features/loginAPi/ApiContext.js';
+import Index from './src/Index.js';
 
-export default function App() {
+const App = () => {
+  
   return (
-    <View style={styles.container}>
-      <Text>Bienvenu sur la branche Dev</Text>
-      <StatusBar style="auto" />
-    </View>
+          <ApiProvider>
+            <Index/>
+          </ApiProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

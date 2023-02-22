@@ -11,10 +11,10 @@ function delay(n){
   });
 }
 
-export default function LoginScreen({setToken}) {
-  const user = useContext(ApiContext);
+export default function LogoScreen({setToken}) {
+  const user= useContext(ApiContext);
   console.log(user.message, 'user.message')
-  const  logged = async () => {
+  const logged = async () => {
     await delay(3);
     if( !user.message === undefined) {
       navigation.navigate("Home");

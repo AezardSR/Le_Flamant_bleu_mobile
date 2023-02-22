@@ -13,7 +13,9 @@ import Lesson from './component/pages/Lesson.js';
 import Exercice from './component/pages/Exercice.js';
 import LoginScreen from './component/features/loginAPi/LoginScreen.js';
 import logoScreen from './component/features/loginAPi/logoScreen.js';
-
+import TableauBord from './src/component/pages/TableauBord.js';
+import Lesson from './src/component/pages/Lesson.js';
+import Exercice from './src/component/pages/Exercice.js';
   
 function Home() {
   const Stack = createNativeStackNavigator();
@@ -21,6 +23,7 @@ function Home() {
   const {user} = useContext(ApiContext);
   console.log(user, 'index.js');
   console.log(user[0].firstname, 'index.js');
+
   return(
   <Tab.Navigator initialRouteName='TableauBord'>
     <Tab.Screen name="Lesson" component={Lesson} options={{
@@ -46,6 +49,13 @@ function Home() {
         <FontAwesomeIcon icon={faChalkboard} />
       ),
     }} />
+    <Tab.Screen name="UserProfil" component={UserProfil} options={{
+          title: 'Profil de "Prénom"',
+          tabBarLabel: 'Profil',
+          tabBarIcon: () => (
+            <FontAwesomeIcon icon={faGear} />
+          ),
+        }} />
   </Tab.Navigator>
   )
 }
@@ -64,6 +74,10 @@ const index = () => {
         <Stack.Screen name="logo" component={logoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        
+        <Stack.Screen name="Footer" component={MenuFooter} options={{ headerShown: false }} />
+        <Stack.Screen name="Planning" component={Plannig} />
+        <Stack.Screen name="AddAppointments" component={AddAppointments} />
     </Stack.Navigator>
   </NavigationContainer>
 

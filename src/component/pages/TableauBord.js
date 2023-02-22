@@ -1,4 +1,4 @@
-import  React, {useContext, useState, useEffect, useState} from 'react';
+import  React, {useContext, useState, useEffect} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';

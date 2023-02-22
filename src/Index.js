@@ -4,7 +4,7 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { createDrawerNavigator } from '@react-navigation/drawer';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+//import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChalkboard, faGraduationCap, faHouse } from '@fortawesome/free-solid-svg-icons';
 import {  } from '@fortawesome/free-solid-svg-icons';
 import { ApiContext, ApiProvider } from './component/features/loginAPi/ApiContext.js';
@@ -13,10 +13,7 @@ import Lesson from './component/pages/Lesson.js';
 import Exercice from './component/pages/Exercice.js';
 import LoginScreen from './component/features/loginAPi/LoginScreen.js';
 import logoScreen from './component/features/loginAPi/logoScreen.js';
-import TableauBord from './src/component/pages/TableauBord.js';
-import Lesson from './src/component/pages/Lesson.js';
-import Exercice from './src/component/pages/Exercice.js';
-  
+
 function Home() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -74,7 +71,7 @@ const index = () => {
         <Stack.Screen name="logo" component={logoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        
+
         <Stack.Screen name="Footer" component={MenuFooter} options={{ headerShown: false }} />
         <Stack.Screen name="Planning" component={Plannig} />
         <Stack.Screen name="AddAppointments" component={AddAppointments} />

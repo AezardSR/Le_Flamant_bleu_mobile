@@ -7,6 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TableauBord from './src/pages/TableauBord.js';
 import Lesson from './src/pages/Lesson.js';
 import Exercice from './src/pages/Exercice.js';
+import Module from './src/pages/Module.js';
+import Categorie from './src/pages/Categorie.js';
+import Part from './src/pages/Part.js';
 
 const App = () => {
 
@@ -21,17 +24,26 @@ const App = () => {
           <Menu.Screen name="Lessons" component={Lesson} />
         </Menu.Navigator> */}
 
-        {/* <Stack.Navigator>
+        <Stack.Navigator>
           <Stack.Screen name="TableauBord" component={TableauBord} />
           <Stack.Screen name="Lesson" component={Lesson} />
-          <Stack.Screen name="Exercice" component={Exercice} />
-        </Stack.Navigator> */}
+          <Stack.Screen name="Exercice" component={Categorie} />
+          <Stack.Screen name="Categorie" component={Categorie} />
+          <Stack.Screen name="Module" component={Module} />
+          <Stack.Screen name="Part" component={Part} />
 
-        <Tab.Navigator>
+
+
+
+        </Stack.Navigator>
+
+        {/* <Tab.Navigator>
           <Tab.Screen name="TableauBord" component={TableauBord} />
           <Tab.Screen name="Lesson" component={Lesson} />
-          <Tab.Screen name="Exercice" component={Exercice} />
-        </Tab.Navigator>
+          <Tab.Screen name="Exercice" component={Categorie} />
+          <Tab.Screen name="Module" component={Module} />
+
+        </Tab.Navigator> */}
 
       </NavigationContainer>
   );

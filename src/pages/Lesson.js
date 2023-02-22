@@ -1,20 +1,16 @@
-import * as React from 'react';
+import { useEffect, useState, React } from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button } from 'react-native';
 
-class Lesson extends React.Component {
-    render() {
-    // const navigation = useNavigation();
+export default function UseModules(){
+const [modules, setModules] = useState(null);
 
-    return (
-      <View>
-        <Text>Add friends here!</Text>
+useEffect(()=>{
+  fetch("http://192.168.1.19:8000/api/modules")
+  .then(response => response.json())
+  .then(json => setModules(json))
+}, [])
 
-        <Button title="TB" onPress={() => this.props.navigation.navigate('TableauBord')} />
-      </View>
-    );
-  }
-}
-
-export default Lesson;
+return modules;
+};

@@ -20,16 +20,18 @@ class Exercice extends React.Component {
 
   getDataFromAPI = async () =>{
     // const endpoint = "https://jsonplaceholder.typicode.com/photos?_limit=20"
-    const endpoint = "http://192.168.1.30:8000/api/modules"
+    const endpoint = "http://192.168.1.19:8000/api/modules"
     const res = await fetch(endpoint)
     const data = await res.json()
     this.setState({items :data})
   }
   _renderItem = ({item, index}) => {
     let {cardText, card, cardImage,} = styles
+    const testAlert = () => { alert('toto');}
     
     return (
-        <TouchableOpacity style={card}>
+
+      <TouchableOpacity style={card}  onPress={testAlert} >
           <FontAwesomeIcon icon={faHtml5} style={styles.icon} size={75}/>
             <Text style={cardText}>{item.name}</Text>
         </TouchableOpacity>
@@ -39,6 +41,7 @@ class Exercice extends React.Component {
     // const navigation = useNavigation();
       let {container, loader} = styles
       let {items} = this.state
+
       if (items.length === 0){
         return(
           <View style={loader}>

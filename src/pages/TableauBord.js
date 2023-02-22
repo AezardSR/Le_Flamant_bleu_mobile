@@ -26,7 +26,7 @@ class TableauBord extends React.Component {
         </View>
 
         <Button title="Go to lessons" onPress={() => this.props.navigation.navigate('Lesson')} />
-        <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Exercice')} />
+        <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Module')} />
       </View>
     );
   }

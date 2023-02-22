@@ -1,15 +1,16 @@
 import React, { createContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useToken from "../../features/loginAPi/useToken.js";
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 const ApiContext = createContext();
 
 export { ApiContext };
 
 export const ApiProvider  = ({children}) => {
-    const hote = "http://192.168.1.123:8000/";
+    const hote = "http://192.168.1.105:8000/";
     const [user, setUser] = useState({})
     const {token, setToken} = useToken();
         
@@ -41,7 +42,7 @@ export const ApiProvider  = ({children}) => {
             console.log('error: ' + error.message); })
     }
 
-    
+    //const navigation = useNavigation();
     const fetchUser = () => {
         console.log(token, "fetchToken")
             fetch(hote+'api/user-profile', {
@@ -54,11 +55,10 @@ export const ApiProvider  = ({children}) => {
                 res.json()
             )).then((data) => {
                 if(data.message == "succes"){
-                    console.log(data.firstname, "data.firstname")
-                    setUser(data)
-                    navigator.navigate('TableauBord')
-                }
-                
+                    console.log(data.firstname, "data.firstname");
+                    setUser(data);
+                    //navigation.navigate('Home');
+                } 
             })
                 
     };

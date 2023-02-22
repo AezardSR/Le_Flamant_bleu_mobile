@@ -12,7 +12,6 @@ export default function TableauBord() {
 
     return (
       <View>
-          <Text>{user.firstname}</Text>
         <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Image source={{uri: '../../css/planningbanniere.png'}} style={{width: 200, height: 200}} />
           <Text style={{position: 'absolute'}}>Planning</Text>

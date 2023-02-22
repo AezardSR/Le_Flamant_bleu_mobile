@@ -4,12 +4,9 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { createDrawerNavigator } from '@react-navigation/drawer';
-<<<<<<< HEAD
 //import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChalkboard, faGraduationCap, faHouse } from '@fortawesome/free-solid-svg-icons';
 import {  } from '@fortawesome/free-solid-svg-icons';
-=======
->>>>>>> parent of 02da75d (merge tb in login)
 import { ApiContext, ApiProvider } from './component/features/loginAPi/ApiContext.js';
 import TableauBord from './component/pages/TableauBord.js';
 import Lesson from './component/pages/Lesson.js';
@@ -22,7 +19,6 @@ function Home() {
   const Tab = createBottomTabNavigator();
   const user = useContext(ApiContext);
   console.log(user, 'index.js');
-<<<<<<< HEAD
   console.log(user[0].firstname, 'index.js');
 
   return(
@@ -57,13 +53,6 @@ function Home() {
             <FontAwesomeIcon icon={faGear} />
           ),
         }} />
-=======
-  return(
-    <Tab.Navigator>
-        <Tab.Screen name="TableauBord" component={TableauBord} />
-        <Tab.Screen name="Lesson" component={Lesson} />
-        <Tab.Screen name="Exercice" component={Exercice} />
->>>>>>> parent of 02da75d (merge tb in login)
   </Tab.Navigator>
   )
 }

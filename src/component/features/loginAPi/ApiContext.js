@@ -10,7 +10,6 @@ const ApiContext = createContext();
 export { ApiContext };
 
 export const ApiProvider  = ({children}) => {
-    const hote = "http://192.168.1.105:8000/";
     const [user, setUser] = useState({})
     const {token, setToken} = useToken();
         
@@ -18,8 +17,9 @@ export const ApiProvider  = ({children}) => {
         fetchUser()
     },[token])
 
+    console.log(process.env, "env");
     const  login =  (credentials) => {
-        return fetch(hote+'api/login', {
+        return fetch(process.env.REACT_APP_NOT_SECRET_CODE+'api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const ApiProvider  = ({children}) => {
     //const navigation = useNavigation();
     const fetchUser = () => {
         console.log(token, "fetchToken")
-            fetch(hote+'api/user-profile', {
+            fetch(process.env.REACT_APP_NOT_SECRET_CODE+'api/user-profile', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -64,7 +64,7 @@ export const ApiProvider  = ({children}) => {
     };
 
     return (
-        <ApiContext.Provider value={{login, user}}>
+        <ApiContext.Provider value={{login, fetchUser, user}}>
             {children}
         </ApiContext.Provider>
     )

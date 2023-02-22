@@ -1,52 +1,62 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, ScrollView, TextInput, StyleSheet } from 'react-native';
-import DatePicker from 'react-native-datepicker';
 
-class AddAppointments extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {date:"2016-05-15"}
+const AddAppointments = () => {
+  const [title, setTitle] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [date, setDate] = useState([]);
+
+  const [receiver, setReceiver] = useState([]);
+  const [receiverID, setReceiverID] = useState([]);
+
+  const [created, setCreated] = useState([]);
+  const [createdID, setCreatedID] = useState([]);
+
+  const [typeAppoitments, setTypeAppoitments] = useState([]);
+  const [typeAppoitmentsID, setTypeAppoitmentsID] = useState([]);
+
+  useEffect(() => {
+      fetch('http://localhost:8000/api/user')
+      .then(response => response.json())
+      .then(data => setReceiver(data))
+  }, [])
+
+  useEffect(() => {
+      fetch('http://localhost:8000/api/user')
+      .then(response => response.json())
+      .then(data => setCreated(data))
+  }, [])
+
+  useEffect(() => {
+      fetch('http://localhost:8000/api/appointmentstypes')
+      .then(response => response.json())
+      .then(data => setTypeAppoitments(data))
+  }, [])
+
+  const handleSubmit = (event) => {
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({titleDetails: title, descriptionDetails: description, dateDetails: date, receiver_id: receiverID, create_id: createdID, appointments_types_id: typeAppoitmentsID})
+      };
+
+      fetch('http://localhost:8000/api/appointments', requestOptions)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          event.preventDefault();
   }
-
-  render() {
-    // const navigation = useNavigation();
-    // const [date, setDate] = useState('09-10-2021');
 
     return (
         <ScrollView>
 
-<DatePicker
-        style={{width: 200}}
-        date={this.state.date}
-        mode="date"
-        placeholder="select date"
-        format="YYYY-MM-DD"
-        minDate="2016-05-01"
-        maxDate="2016-06-01"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0
-          },
-          dateInput: {
-            marginLeft: 36
-          }
-          // ... You can check the source to find the other keys.
-        }}
-        onDateChange={(date) => {this.setState({date: date})}}
-      />            <TextInput style={styles.input} placeholder='Objet du rdv' maxLength={50} />
-            <TextInput style={styles.input} placeholder='Description' multiline maxLength={100} />
-            <Button title="Ajouter" />
+            <TextInput value={title} onChange={(event) => {setTitle(event.target.value)}} name="titleDetails" style={styles.input} placeholder='Objet du rdv' maxLength={50} />
+            <TextInput value={description} onChange={(event) => {setDescription(event.target.value)}} name="descriptionDetails" style={styles.input} placeholder='Description' multiline maxLength={100} />
+            <Button onClick={handleSubmit} type="submit" title="Ajouter" />
 
         </ScrollView>
     );
-  }
 }
 
 const styles = StyleSheet.create({

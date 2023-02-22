@@ -1,34 +1,42 @@
-import  React, {useContext} from 'react';
+import  React, {useContext, useState} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text, View, Button, Image } from 'react-native';
+import { Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import ImagePlannig from '../../assets/planningbanniere.png';
 import { ApiContext } from '../features/loginAPi/ApiContext';
-// import PlanningIMG from '../../css/planningbanniere.png';
+
 
 export default function TableauBord() {
     const {user} = useContext(ApiContext);
     console.log(user, "user tb");
 
+    const navigation = useNavigation();
+    const imgPlanning = Image.resolveAssetSource(ImagePlannig).uri;
 
     return (
       <View>
-        <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Image source={{uri: '../../css/planningbanniere.png'}} style={{width: 200, height: 200}} />
-          <Text style={{position: 'absolute'}}>Planning</Text>
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
+          <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 10}}>
+            <Image source={{uri: imgPlanning}} style={{width: '80%', height: 200}} />
+            <Text style={{position: 'absolute'}}>Planning</Text>
+          </View>
+        </TouchableOpacity>
 
-        <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Image source={{uri: '../../css/planningbanniere.png'}} style={{width: 200, height: 200}} />
-          <Text style={{position: 'absolute'}}>Annonce de jobs</Text>
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
+          <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
+            <Image source={require('../../assets/pole_emploi.jpg')} style={{width: '80%', height: 200}} />
+            <Text style={{position: 'absolute'}}>Annonce de jobs</Text>
+          </View>
+        </TouchableOpacity>
 
-        <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Image source={{uri: '../../css/planningbanniere.png'}} style={{width: 200, height: 200}} />
-          <Text style={{position: 'absolute'}}>Actualités</Text>
-        </View>
-
-        <Button title="Go to lessons" onPress={() => this.props.navigation.navigate('Lesson')} />
-        <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Exercice')} />
+        <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
+          <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+            <Image source={require('../../assets/le_monde.webp')} style={{width: '80%', height: 200}} />
+            <Text style={{position: 'absolute'}}>Actualités</Text>
+          </View>
+        </TouchableOpacity>
+        {/* <Button title="Go to lessons" onPress={() => this.props.navigation.navigate('Lesson')} />
+        <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Exercice')} /> */}
       </View>
     );
   }

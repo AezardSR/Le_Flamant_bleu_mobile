@@ -31,7 +31,7 @@ export default function LoginScreen({setToken}) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../../assets/images/logo_la_manu.png')} />
+      <Image style={styles.image} source={require('../../assets/images/logo_la_manu.png')} />
       <TextInput style={styles.inputView} onChangeText={e => setMail(e)} placeholder='Mail'></TextInput>
       <TextInput secureTextEntry={true} style={styles.inputView} onChangeText={e => setPassword(e)} placeholder='Mot de passe'></TextInput>
       <Button onPress={handleSubmit} title='Connexion'/>

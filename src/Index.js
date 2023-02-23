@@ -7,18 +7,18 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChalkboard, faGraduationCap, faHouse } from '@fortawesome/free-solid-svg-icons';
 import {  } from '@fortawesome/free-solid-svg-icons';
-import { ApiContext, ApiProvider } from './component/features/loginAPi/ApiContext.js';
-import TableauBord from './component/pages/TableauBord.js';
-import Lesson from './component/pages/Lesson.js';
-import Exercice from './component/pages/Exercice.js';
-import LoginScreen from './component/features/loginAPi/LoginScreen.js';
-import logoScreen from './component/features/loginAPi/logoScreen.js';
-import Plannig from './component/pages/Planning.js'
-import AddAppointments from './component/features/AddAppointments.js'
-import UserProfil from './component/pages/UserProfil.js'
-import Module from './src/pages/Module.js';
-import Categorie from './src/pages/Categorie.js';
-import Part from './src/pages/Part.js';
+import { ApiContext, ApiProvider } from './features/loginAPi/ApiContext.js';
+import TableauBord from './pages/TableauBord.js';
+import Lesson from './pages/Lesson.js';
+import Exercice from './pages/Exercice.js';
+import LoginScreen from './features/loginAPi/LoginScreen.js';
+import logoScreen from './features/loginAPi/logoScreen.js';
+import Plannig from './pages/Planning.js'
+import AddAppointments from './features/AddAppointments.js'
+import UserProfil from './pages/UserProfil.js'
+import Module from './pages/Module.js';
+import Categorie from './pages/Categorie.js';
+import Part from './pages/Part.js';
 
 function Home() {
   const Stack = createNativeStackNavigator();

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, Image, TextInput, StyleSheet } from 'react-native';
-import IMGUser from '../../assets/user.jpg'
+import IMGUser from '../assets/user.jpg'
 import { ScrollView } from 'react-native-gesture-handler';
 
 const imgUser = Image.resolveAssetSource(IMGUser).uri;

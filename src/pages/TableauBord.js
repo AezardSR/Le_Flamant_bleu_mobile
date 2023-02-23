@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import moment from "moment";
 import "moment/min/locales";
-import ImagePlannig from '../../assets/planningbanniere.png';
 import { ApiContext } from '../features/loginAPi/ApiContext';
 
 
@@ -42,14 +41,14 @@ export default function TableauBord() {
         
         <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
           <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
-            <Image source={require('../../assets/pole_emploi.jpg')} style={{width: '80%', height: 200}} />
+            <Image source={require('../assets/pole_emploi.jpg')} style={{width: '80%', height: 200}} />
             <Text style={styles.nameBlock}>Annonce de jobs</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
           <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
-            <Image source={require('../../assets/le_monde.webp')} style={{width: '80%', height: 200}} />
+            <Image source={require('../assets/le_monde.webp')} style={{width: '80%', height: 200}} />
             <Text style={styles.nameBlock}>Actualités</Text>
           </View>
         </TouchableOpacity>

@@ -28,7 +28,7 @@ export default function LogoScreen({setToken}) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} onLoad={logged} source={require('../../../assets/images/logo_la_manu.png')} />
+      <Image style={styles.image} onLoad={logged} source={require('../../assets/images/logo_la_manu.png')} />
     </View>
   )
 };

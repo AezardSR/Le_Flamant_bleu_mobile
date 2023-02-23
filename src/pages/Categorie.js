@@ -4,21 +4,22 @@ import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Card from '../components/Card.js';
+import CardStyles from '../components/Card.js';
 
 function Categorie({navigation}){
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
    useEffect(() => {
-    fetch('http://192.168.1.30:8000/api/categories')
+    fetch('http://192.168.1.128:8000/api/categories')
     .then((response) => response.json())
     .then((json) => setData(json))
     .catch((error) => console.error(error))
     .finally(() => setLoading(false));
    }, []);
-   useEffect(() => {
-getCategories();
-   }, [])
+//    useEffect(() => {
+// getCategories();
+//    }, [])
   return (
     <View style={{flex: 1, padding: 24}}>
             {isLoading ? (
@@ -26,11 +27,11 @@ getCategories();
            ) : (
              <FlatList
                data={data}
-               dataCat={dataCat}
+              //  dataCat={dataCat}
                keyExtractor={({id}) => id}
                renderItem={({item}) => ( 
                <TouchableOpacity>
-                 <Card categorie={item.categorie}/>
+                 <CardStyles categorie={item.categorie}/>
                 </TouchableOpacity>
                )}
              />

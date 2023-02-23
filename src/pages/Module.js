@@ -1,21 +1,19 @@
 import * as React from 'react';
-import { View,Text, FlatList, ActivityIndicator, TouchableOpacity, SafeAreaView,StyleSheet, StatusBar} from 'react-native';
+import { View,Text, FlatList, TouchableOpacity, SafeAreaView,StyleSheet, navigation} from 'react-native';
 import { useState, useEffect } from 'react';
-import Card from '../components/Card.js';
+import Categorie from './Categorie.js';
 
 
-function Module(){
+function Module({navigation}){
   const [isLoading, setLoading] = useState(true);
   const [modules, setModules] = useState([]);
   const [modulesCategories, setModulesCategories] = useState([])
   const [categories, setCategories] = useState([]);
   const [selectedId, setSelectedId] = useState();
 
-  
-
   const getModules = async () => {
     try {
-      const response = await fetch("http://192.168.1.19:8000/api/modules")
+      const response = await fetch("http://192.168.1.128:8000/api/modules")
       const json = await response.json();
       setModules(json)
       // console.log(modules[0].name)s
@@ -27,14 +25,14 @@ function Module(){
   }
 
   const getModulesCategories = async () =>{
-    const response = await fetch('http://192.168.1.19:8000/api/modulescategories')
+    const response = await fetch('http://192.168.1.128:8000/api/modulescategories')
     const json = await response.json();
     setModulesCategories(json)
     // console.log(modulesCategories)
   }
 
   const getCategories = async () => {
-    const response = await fetch('http://192.168.1.19:8000/api/categories')
+    const response = await fetch('http://192.168.1.128:8000/api/categories')
     const json = await response.json();
     setCategories(json);
     // console.log(categories);
@@ -42,29 +40,31 @@ function Module(){
 
   useEffect(()=>{
     getModules();
-    getModulesCategories();
-    getCategories();
+    // getModulesCategories();
+    // getCategories();
   }, [])
   
-  const Item = ({item, onPress, backgroundColor}) => (
-    <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
-      {/* <Text style={[styles.title]}>{item.name}</Text> */}
-      <Card categorie={item.name}/>
+  const ModuleStyle = ({item, onPress}) => (
+    <TouchableOpacity onPress={onPress}  style={stylesCard.cardContent}>
+      <Text style={stylesCard.cardtitle}>{item.name}</Text>
     </TouchableOpacity>
   );
   const renderItem = ({item}) => {
-    const backgroundColor = item.id === selectedId ? console.log(selectedId) : '#f9c2ff';
-
+    if(selectedId === 2){
+      console.log("back")
+    }else if (selectedId === 1){
+      console.log("front")
+    }
     return (
-      <Item
+      <ModuleStyle
         item={item}
-        onPress={() => setSelectedId(item.id)}
-        backgroundColor={backgroundColor}
+        onPress={() => setSelectedId(item.id, navigation.navigate('Categorie'))}
+        // backgroundColor={backgroundColor}
       />
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <FlatList
         data={modules}
         renderItem={renderItem}
@@ -74,18 +74,26 @@ function Module(){
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
-  },
-});
+const stylesCard = StyleSheet.create({
+  cardContent: {
+       flex: 1,
+       // padding: 24,
+       backgroundColor: '#eaeaea',
+       marginHorizontal : 18,
+       marginVertical : 10,
+       marginBottom : 50,
+   },
+   cardtitle : {
+       // marginTop: 16,
+   paddingVertical: 8,
+   borderWidth: 4,
+   borderColor: '#20232a',
+   borderRadius: 6,
+   backgroundColor: '#61dafb',
+   color: '#20232a',
+   textAlign: 'center',
+   fontSize: 30,
+   fontWeight: 'bold',
+   },
+})
 export default Module;

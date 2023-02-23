@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/le_flamant_bleu_mobile.iml" filepath="$PROJECT_DIR$/.idea/le_flamant_bleu_mobile.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/Le_Flamant_Bleu_Mobile.iml" filepath="$PROJECT_DIR$/.idea/Le_Flamant_Bleu_Mobile.iml" />
+>>>>>>> dev
     </modules>
   </component>
 </project>

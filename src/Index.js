@@ -24,8 +24,7 @@ function Home() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
   const {user} = useContext(ApiContext);
-  console.log(user, 'index.js');
-  console.log(user["user"].firstname, 'index.js');
+  const userInfo = user["user"];
 
   return(
   <Tab.Navigator initialRouteName='TableauBord'>
@@ -38,7 +37,7 @@ function Home() {
       }} />
 
       <Tab.Screen name="TableauBord" component={TableauBord} options={{
-        title: 'Bienvenu '+user["user"].firstname,
+        title: 'Bienvenu '+userInfo.firstname,
         tabBarLabel: 'Tableau de bord',
         tabBarIcon: () => (
           <FontAwesomeIcon icon={faHouse} />
@@ -53,7 +52,7 @@ function Home() {
       ),
     }} />
     <Tab.Screen name="UserProfil" component={UserProfil} options={{
-          title: 'Profil de '+user["user"].firstname,
+          title: 'Profil de '+userInfo.firstname,
           tabBarLabel: 'Profil',
           // tabBarIcon: () => (
           //   // <FontAwesomeIcon icon={/*faGear*/} />
@@ -74,7 +73,7 @@ const index = () => {
   <NavigationContainer>
     <Stack.Navigator>
         <Stack.Screen name="logo" component={logoScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
         <Stack.Screen name="Footer" component={Home} options={{ headerShown: false }} />

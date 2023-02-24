@@ -14,7 +14,9 @@ export default function LoginScreen({setToken}) {
   const [password, setPassword] = useState();
   
   useEffect(() => {
+    if(user["message"]==="succes"){
       navigation.navigate("Home")
+    }
   }, [user])
 
 

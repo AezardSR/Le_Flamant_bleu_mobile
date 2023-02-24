@@ -13,19 +13,20 @@ function delay(n){
 
 export default function LogoScreen({setToken}) {
   const {user}= useContext(ApiContext);
-  console.log(user["message"], 'user.message')
+  const navigation = useNavigation();
   const logged = async () => {
-    // navigation.navigate("Home");
     await delay(3);
-    if( !user["message"] === "succes") {
-      navigation.navigate("Home");
+    if( 1+2 == 2) {
+      console.log("redirect to home...")
+      navigation.navigate("Home");   
     } else {
-      navigation.navigate("login");
-      
+      console.log("redirect to Login...")
+      navigation.navigate("Login");
+         
     }
   }
   
-  const navigation = useNavigation();
+
 
   return (
     <View style={styles.container}>

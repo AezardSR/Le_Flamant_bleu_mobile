@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import moment from "moment";
 import "moment/min/locales";
+import ImagePlannig from '../assets/planningbanniere.png';
 import { ApiContext } from '../features/loginAPi/ApiContext';
 
 

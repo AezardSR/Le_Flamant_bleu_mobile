@@ -25,7 +25,7 @@ function Home() {
   const Tab = createBottomTabNavigator();
   const {user} = useContext(ApiContext);
   console.log(user, 'index.js');
-  console.log(user[0].firstname, 'index.js');
+  console.log(user["user"].firstname, 'index.js');
 
   return(
   <Tab.Navigator initialRouteName='TableauBord'>
@@ -38,7 +38,7 @@ function Home() {
       }} />
 
       <Tab.Screen name="TableauBord" component={TableauBord} options={{
-        title: 'Bienvenu '+user[0].firstname,
+        title: 'Bienvenu '+user["user"].firstname,
         tabBarLabel: 'Tableau de bord',
         tabBarIcon: () => (
           <FontAwesomeIcon icon={faHouse} />
@@ -53,7 +53,7 @@ function Home() {
       ),
     }} />
     <Tab.Screen name="UserProfil" component={UserProfil} options={{
-          title: 'Profil de '+user[0].firstname,
+          title: 'Profil de '+user["user"].firstname,
           tabBarLabel: 'Profil',
           // tabBarIcon: () => (
           //   // <FontAwesomeIcon icon={/*faGear*/} />
@@ -66,7 +66,6 @@ function Home() {
 const index = () => {
 
   const user = useContext(ApiContext);
-  console.log(user, 'index.js');
   const Stack = createNativeStackNavigator();
   
   const Tab = createBottomTabNavigator();

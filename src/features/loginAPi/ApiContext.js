@@ -19,7 +19,7 @@ export const ApiProvider  = ({children}) => {
 
     console.log(process.env, "env");
     const  login =  (credentials) => {
-        return fetch('http://192.168.1.15:8000/api/login', {
+        return fetch('http://192.168.1.123:8000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const ApiProvider  = ({children}) => {
     //const navigation = useNavigation();
     const fetchUser = () => {
         console.log(token, "fetchToken")
-            fetch('http://192.168.1.15:8000/api/user-profile', {
+            fetch('http://192.168.1.123:8000/api/user-profile', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

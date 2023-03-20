@@ -11,7 +11,7 @@ function Categorie({navigation}){
   const [data, setData] = useState([]);
 
    useEffect(() => {
-    fetch('http://192.168.1.128:8000/api/categories')
+    fetch('http://192.168.1.30:8000/api/categories')
     .then((response) => response.json())
     .then((json) => setData(json))
     .catch((error) => console.error(error))

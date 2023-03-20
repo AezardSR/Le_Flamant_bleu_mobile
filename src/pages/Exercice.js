@@ -20,7 +20,7 @@ class Exercice extends React.Component {
 
   getDataFromAPI = async () =>{
     // const endpoint = "https://jsonplaceholder.typicode.com/photos?_limit=20"
-    const endpoint = "http://192.168.1.19:8000/api/modules"
+    const endpoint = "http://192.168.1.30:8000/api/modules"
     const res = await fetch(endpoint)
     const data = await res.json()
     this.setState({items :data})

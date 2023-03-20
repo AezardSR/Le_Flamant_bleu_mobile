@@ -19,7 +19,6 @@ import UserProfil from './pages/UserProfil.js'
 import Module from './pages/Module.js';
 import Categorie from './pages/Categorie.js';
 import Part from './pages/Part.js';
-import TestModule from './pages/TestModule.js';
 
 function Home() {
   const Stack = createNativeStackNavigator();
@@ -45,7 +44,7 @@ function Home() {
         ),
       }} />
       
-    <Tab.Screen name="Exercice" component={TestModule} options={{
+    <Tab.Screen name="Exercice" component={Module} options={{
       title: 'Exercices',
       tabBarLabel: 'Exercices',
       tabBarIcon: () => (
@@ -80,8 +79,8 @@ const index = () => {
         <Stack.Screen name="Footer" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Planning" component={Plannig} />
         <Stack.Screen name="AddAppointments" component={AddAppointments} />
-        <Stack.Screen name="TestModule" component={TestModule} />
-        <Stack.Screen name="Lesson" component={Lesson} />
+        <Stack.Screen name="Module" component={Module} />
+        <Stack.Screen name="Categorie" component={Categorie} />
 
 
     </Stack.Navigator>

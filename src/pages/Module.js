@@ -1,77 +1,38 @@
 import * as React from 'react';
-import { View,Text, FlatList, TouchableOpacity, SafeAreaView,StyleSheet, navigation} from 'react-native';
+import { View,Text, FlatList, TouchableOpacity,StyleSheet} from 'react-native';
 import { useState, useEffect } from 'react';
-import Categorie from './Categorie';
+import Lesson from './Lesson';
+import { useNavigation } from '@react-navigation/native';
 
 
-function Module({navigation}){
-  const [isLoading, setLoading] = useState(true);
+
+function Module(){
   const [modules, setModules] = useState([]);
-  const [modulesCategories, setModulesCategories] = useState([])
-  const [categories, setCategories] = useState([]);
-  const [selectedId, setSelectedId] = useState();
+  const navigation = useNavigation();
 
   const getModules = async () => {
-    try {
-      const response = await fetch("http://192.168.1.30:8000/api/modules")
+      const response = await fetch("http://192.168.1.123:8000/api/modules")
       const json = await response.json();
       setModules(json)
-      // console.log(modules[0].name)s
-    } catch(error){
-      console.log(error);
-    }finally{
-      setLoading(false);
-    }
-  }
-
-  const getModulesCategories = async () =>{
-    const response = await fetch('http://192.168.1.30:8000/api/modulescategories')
-    const json = await response.json();
-    setModulesCategories(json)
-    // console.log(modulesCategories)
-  }
-
-  const getCategories = async () => {
-    const response = await fetch('http://192.168.1.30:8000/api/categories')
-    const json = await response.json();
-    setCategories(json);
-    // console.log(categories);
-  }
+  };
 
   useEffect(()=>{
     getModules();
-    // getModulesCategories();
-    // getCategories();
   }, [])
-  
-  const ModuleStyle = ({item, onPress}) => (
-    <TouchableOpacity onPress={onPress}  style={stylesCard.cardContent}>
-      <Text style={stylesCard.cardtitle}>{item.name}</Text>
-    </TouchableOpacity>
-  );
-  const renderItem = ({item}) => {
-    if(selectedId === 2){
-      console.log("back")
-    }else if (selectedId === 1){
-      console.log("front")
-    }
-    return (
-      <ModuleStyle
-        item={item}
-        onPress={() => setSelectedId(item.id, navigation.navigate('Categorie'))}
-        // backgroundColor={backgroundColor}
-      />
-    );
+
+  const goToCategories = (id) =>{
+    navigation.navigate('Categorie', {id});
   };
-  return (
-    <SafeAreaView>
-      <FlatList
-        data={modules}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        extraData={selectedId}
-      />
-    </SafeAreaView>
+  return(
+    <FlatList
+      data={modules}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({item}) => (
+        <TouchableOpacity onPress={() => goToCategories(item.id)} style={stylesCard.cardContent}>
+          <Text style={stylesCard.cardtitle}>{item.name}</Text>
+        </TouchableOpacity>
+      )}
+    />
   );
 }
 const stylesCard = StyleSheet.create({

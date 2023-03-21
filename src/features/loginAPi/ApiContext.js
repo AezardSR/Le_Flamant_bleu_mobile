@@ -19,7 +19,7 @@ export const ApiProvider  = ({children}) => {
 
     console.log(process.env, "env");
     const  login =  (credentials) => {
-        return fetch(process.env.REACT_APP_NOT_SECRET_CODE+'api/login', {
+        return fetch('http://192.168.1.39:8000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const ApiProvider  = ({children}) => {
     //const navigation = useNavigation();
     const fetchUser = () => {
         console.log(token, "fetchToken")
-            fetch(process.env.REACT_APP_NOT_SECRET_CODE+'api/user-profile', {
+            fetch('http://192.168.1.39:8000/api/user-profile', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

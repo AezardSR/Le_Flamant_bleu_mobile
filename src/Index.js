@@ -81,6 +81,8 @@ const index = () => {
         <Stack.Screen name="AddAppointments" component={AddAppointments} />
         <Stack.Screen name="Module" component={Module} />
         <Stack.Screen name="Categorie" component={Categorie} />
+        <Stack.Screen name="Part" component={Part} />
+
 
 
     </Stack.Navigator>

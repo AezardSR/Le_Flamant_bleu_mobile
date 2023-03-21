@@ -1,25 +1,38 @@
 import {React, useEffect, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, SafeAreaView,StyleSheet} from 'react-native';
 
 function Categorie(){
 
+  // etat des composants, on initialise les variables dans un tableau vide au depart
   const [categories, setCategories] = useState([]);
-  const [idCatModul, setIdCatModul] = useState([]);
+  const [idCatModul, setIdCatModul] = useState([]); 
   const [filteredCategories, setFilteredCategories] = useState([]);
-  const route = useRoute();
-  const idModule = parseInt(route.params.id);
+  const navigation = useNavigation();
+  const route = useRoute(); // sert a recuprerer l'id du module
+  const idModule = parseInt(route.params.id); // recuperation de l'ID du module sur lequelle on a cliqué
 
+  // recuperation des données de la table categorie
   const getCategories = async () => {
-    const response = await fetch("http://192.168.1.123:8000/api/categories");
-    const json = await response.json();
-    setCategories(json);
+    try {
+      const response = await fetch("http://192.168.1.30:8000/api/categories");
+      const json = await response.json();
+      setCategories(json);
+    } catch (error) {
+      console.error("erreur categorie   " + error);
+    }
   };
+  
 
+  // recuperation des données de la table modulescategories
   const getIdCatModul = async () => {
-    const response = await fetch("http://192.168.1.123:8000/api/modulescategories");
+    try {
+    const response = await fetch("http://192.168.1.30:8000/api/module-categories");
     const json = await response.json();
     setIdCatModul(json);
+    } catch(error){
+      console.error("erreur idcat   " + error);
+    }
   };
 
   useEffect(() => {
@@ -27,29 +40,48 @@ function Categorie(){
     getIdCatModul();
   }, []);
 
+  // fait le filtre des categories en fonction de l'id du module
   useEffect(() => {
+    // filtre les categories qui possede le meme modules_id que l'id Module selectionné dans la page d'avant
     const filtered = idCatModul.filter((item) => item.modules_id === idModule);
+    // recupere que les ID des categories avec l'ID Module selectionné
     const categoryIds = filtered.map((item) => item.categories_id);
+    // montre la liste des categories qu'il reste avec l' ID Module selectionné
     const filteredCategories = categories.filter((category) => categoryIds.includes(category.id));
     setFilteredCategories(filteredCategories);
   }, [idCatModul, idModule, categories]);
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={stylesCard.cardContent}>
-      <Text style={stylesCard.cardtitle}>{item.categorie}</Text>
-    </TouchableOpacity>
+  const goToPart =(id) => {
+    navigation.navigate('Part', {id});
+  }
+  return(
+    <FlatList
+      data={filteredCategories}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({item}) => (
+        <TouchableOpacity onPress={() => goToPart(item.id)} style={stylesCard.cardContent}>
+          <Text style={stylesCard.cardtitle}>{item.categorie}</Text>
+        </TouchableOpacity>
+      )}
+    />
   );
+}
+//   const renderItem = ({ item }) => (
+//     <TouchableOpacity style={stylesCard.cardContent}>
+//       <Text style={stylesCard.cardtitle}>{item.categorie}</Text>
+//     </TouchableOpacity>
+//   );
 
-  return (
-    <SafeAreaView>
-      <FlatList
-        data={filteredCategories}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </SafeAreaView>
-  );
-};
+//   return (
+//     <SafeAreaView>
+//       <FlatList
+//         data={filteredCategories}
+//         renderItem={renderItem}
+//         keyExtractor={(item) => item.id.toString()}
+//       />
+//     </SafeAreaView>
+//   );
+// };
 
 const stylesCard = StyleSheet.create({
     cardContent: {

@@ -11,7 +11,7 @@ function Module(){
   const navigation = useNavigation();
 
   const getModules = async () => {
-      const response = await fetch("http://192.168.1.123:8000/api/modules")
+      const response = await fetch("http://192.168.1.30:8000/api/modules")
       const json = await response.json();
       setModules(json)
   };

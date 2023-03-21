@@ -12,9 +12,9 @@ export default function LoginScreen({setToken}) {
   const {login, user} = useContext(ApiContext);
   const [mail, setMail] = useState();
   const [password, setPassword] = useState();
-
+  
   useEffect(() => {
-    if(user.message==='succes'){
+    if(user["message"]==="succes"){
       navigation.navigate("Home")
     }
   }, [user])

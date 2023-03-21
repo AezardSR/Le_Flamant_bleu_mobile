@@ -19,6 +19,7 @@ import UserProfil from './pages/UserProfil.js'
 import Module from './pages/Module.js';
 import Categorie from './pages/Categorie.js';
 import Part from './pages/Part.js';
+import {registerRootComponent} from 'expo';
 
 function Home() {
   const Stack = createNativeStackNavigator();

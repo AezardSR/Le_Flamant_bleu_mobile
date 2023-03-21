@@ -7,7 +7,7 @@ export default function UseModules(){
 const [modules, setModules] = useState(null);
 
 useEffect(()=>{
-  fetch("http://192.168.1.19:8000/api/modules")
+  fetch(`${API_PATH}/modules`)
   .then(response => response.json())
   .then(json => setModules(json))
 }, [])

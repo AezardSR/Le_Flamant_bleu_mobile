@@ -25,7 +25,11 @@ function Module({navigation}){
   }
 
   const getModulesCategories = async () =>{
+<<<<<<< HEAD
     const response = await fetch(`${API_PATH}/modulescategories`)
+=======
+    const response = await fetch('http://192.168.1.128:8000/api/module-categories')
+>>>>>>> dev
     const json = await response.json();
     setModulesCategories(json)
     // console.log(modulesCategories)

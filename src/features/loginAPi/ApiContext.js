@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import useToken from "../../features/loginAPi/useToken.js";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {API_PATH} from "@env";
 
 
 const ApiContext = createContext();

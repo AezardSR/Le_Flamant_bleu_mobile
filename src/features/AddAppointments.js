@@ -31,11 +31,7 @@ const AddAppointments = () => {
   }, [])
 
   useEffect(() => {
-<<<<<<< HEAD
       fetch(`${API_PATH}/appointmentstypes`)
-=======
-      fetch('http://localhost:8000/api/appointment-types')
->>>>>>> dev
       .then(response => response.json())
       .then(data => setTypeAppoitments(data))
   }, [])

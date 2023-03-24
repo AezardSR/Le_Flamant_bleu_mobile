@@ -5,8 +5,6 @@ import {View, Text, Image, ScrollView, TextInput, Button, StyleSheet, onChangeTe
 import { ApiContext } from './ApiContext';
 
 
-
-
 export default function LoginScreen({setToken}) {
   const navigation = useNavigation();
   const {login, user} = useContext(ApiContext);

@@ -21,6 +21,7 @@ import Categorie from './pages/Categorie.js';
 import Part from './pages/Part.js';
 import ShowLessonExercice from './pages/ShowLessonExercice.js';
 
+
 function Home() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();

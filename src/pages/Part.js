@@ -1,65 +1,61 @@
 import {React, useEffect, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
-import {Text, View, FlatList, TouchableOpacity, SafeAreaView,StyleSheet} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {Text, View, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
+import stylesCard from '../components/Card';
 
 function Part(){
 
+  const [loading, setLoading] = useState(true);
   const [parts, setParts] = useState([]);
   const [filtered, setFilter] = useState([]);
   const route = useRoute();
+  const navigation = useNavigation();
   const idCategorie = parseInt(route.params.id)
 
-  const getParts = async () => {
-    try{
-      const response = await fetch("http://192.168.1.30:8000/api/parts");
-      const json = await response.json()
-      setParts(json);
-    } catch(error){
-      console.log("erreur part  " + error)
-    }
-  };
+  const getParts = () => {
+    fetch("http://192.168.1.123:8000/api/parts")
+      .then(response => response.json())
+      .then(json =>{
+        setParts(json)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error("part" + error)
+      })
+  }
+
   useEffect(() => {
     getParts();
-  })
+  },[])
+
   useEffect(() => {
     const filtered = parts.filter((item) => item.categories_id === idCategorie);
-    // console.log("filtered   " + JSON.stringify(filtered));
-    // const partsIDs = filtered.map((item) => item.id);
-    // console.log('partisIDDD   ' + partsIDs);
     setFilter(filtered)
   }, [parts, idCategorie]);
+
+  const goToExercices = (id) => {
+    navigation.navigate('Exercice', {id} )
+  }
 return(
+  <View>
+    {loading ?(
+        <View>
+          <ActivityIndicator size="large" color="#28abe2"/>
+        </View>
+      ) : (
     <FlatList
       data={filtered}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({item}) => (
-        <TouchableOpacity style={stylesCard.cardContent}>
+        <View style={stylesCard.cardContainer}>
+        <TouchableOpacity onPress={() => goToExercices(item.id)} style={stylesCard.card}>
           <Text style={stylesCard.cardtitle}>{item.name}</Text>
         </TouchableOpacity>
+        </View>
       )}
     />
+    )}
+  </View>
 );
 }
-const stylesCard = StyleSheet.create({
-  cardContent: {
-       flex: 1,
-       // padding: 24,
-       backgroundColor: '#eaeaea',
-       marginHorizontal : 18,
-       marginVertical : 10,
-       marginBottom : 50,
-   },
-   cardtitle : {
-       // marginTop: 16,
-   paddingVertical: 8,
-   borderWidth: 4,
-   borderColor: '#20232a',
-   borderRadius: 6,
-   backgroundColor: '#61dafb',
-   color: '#20232a',
-   textAlign: 'center',
-   fontSize: 30,
-   fontWeight: 'bold',
-   },
-})
 export default Part;

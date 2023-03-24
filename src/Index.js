@@ -19,6 +19,7 @@ import UserProfil from './pages/UserProfil.js'
 import Module from './pages/Module.js';
 import Categorie from './pages/Categorie.js';
 import Part from './pages/Part.js';
+import ShowLessonExercice from './pages/ShowLessonExercice.js';
 
 function Home() {
   const Stack = createNativeStackNavigator();
@@ -28,13 +29,13 @@ function Home() {
 
   return(
   <Tab.Navigator initialRouteName='TableauBord'>
-    <Tab.Screen name="Lesson" component={Lesson} options={{
+    {/* <Tab.Screen name="Lesson" component={Lesson} options={{
       title: 'Leçons',
       tabBarLabel: 'Leçons',
       tabBarIcon: () => (
         <FontAwesomeIcon icon={faGraduationCap} />
         ),
-      }} />
+      }} /> */}
 
       <Tab.Screen name="TableauBord" component={TableauBord} options={{
         title: 'Bienvenu '+userInfo.firstname,
@@ -44,9 +45,9 @@ function Home() {
         ),
       }} />
       
-    <Tab.Screen name="Exercice" component={Module} options={{
-      title: 'Exercices',
-      tabBarLabel: 'Exercices',
+    <Tab.Screen name="Cours" component={Module} options={{
+      title: 'Langage',
+      tabBarLabel: 'Cours',
       tabBarIcon: () => (
         <FontAwesomeIcon icon={faChalkboard} />
       ),
@@ -80,10 +81,10 @@ const index = () => {
         <Stack.Screen name="Planning" component={Plannig} />
         <Stack.Screen name="AddAppointments" component={AddAppointments} />
         <Stack.Screen name="Module" component={Module} />
-        <Stack.Screen name="Categorie" component={Categorie} />
-        <Stack.Screen name="Part" component={Part} />
-
-
+        <Stack.Screen name="Librairies/Framework" component={Categorie} />
+        <Stack.Screen name="Intitulé des parties" component={Part} />
+        <Stack.Screen name="Exercice" component={Exercice} />
+        <Stack.Screen name="Cour/Exercice" component={ShowLessonExercice} />
 
     </Stack.Navigator>
   </NavigationContainer>

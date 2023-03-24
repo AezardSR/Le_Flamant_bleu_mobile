@@ -1,10 +1,12 @@
 import {React, useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
-import {Text, FlatList, TouchableOpacity, SafeAreaView,StyleSheet} from 'react-native';
+import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import stylesCard from '../components/Card';
 
 function Categorie(){
 
   // etat des composants, on initialise les variables dans un tableau vide au depart
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [idCatModul, setIdCatModul] = useState([]); 
   const [filteredCategories, setFilteredCategories] = useState([]);
@@ -15,9 +17,10 @@ function Categorie(){
   // recuperation des données de la table categorie
   const getCategories = async () => {
     try {
-      const response = await fetch("http://192.168.1.30:8000/api/categories");
+      const response = await fetch("http://192.168.1.123:8000/api/categories");
       const json = await response.json();
       setCategories(json);
+      setLoading(false)
     } catch (error) {
       console.error("erreur categorie   " + error);
     }
@@ -27,7 +30,7 @@ function Categorie(){
   // recuperation des données de la table modulescategories
   const getIdCatModul = async () => {
     try {
-    const response = await fetch("http://192.168.1.30:8000/api/module-categories");
+    const response = await fetch("http://192.168.1.123:8000/api/module-categories");
     const json = await response.json();
     setIdCatModul(json);
     } catch(error){
@@ -52,57 +55,28 @@ function Categorie(){
   }, [idCatModul, idModule, categories]);
 
   const goToPart =(id) => {
-    navigation.navigate('Part', {id});
+    navigation.navigate('Intitulé des parties', {id});
   }
   return(
-    <FlatList
-      data={filteredCategories}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({item}) => (
-        <TouchableOpacity onPress={() => goToPart(item.id)} style={stylesCard.cardContent}>
-          <Text style={stylesCard.cardtitle}>{item.categorie}</Text>
-        </TouchableOpacity>
+    <View>
+      {loading ? (
+        <View>
+          <ActivityIndicator size="large" color="#28abe2"/>
+        </View>
+      ) : (
+      <FlatList
+        data={filteredCategories}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => (
+          <View style={stylesCard.cardContainer}>
+          <TouchableOpacity onPress={() => goToPart(item.id)} style={stylesCard.card}>
+            <Text style={stylesCard.cardtitle}>{item.categorie}</Text>
+          </TouchableOpacity>
+          </View>
+        )}
+      />
       )}
-    />
+    </View>
   );
 }
-//   const renderItem = ({ item }) => (
-//     <TouchableOpacity style={stylesCard.cardContent}>
-//       <Text style={stylesCard.cardtitle}>{item.categorie}</Text>
-//     </TouchableOpacity>
-//   );
-
-//   return (
-//     <SafeAreaView>
-//       <FlatList
-//         data={filteredCategories}
-//         renderItem={renderItem}
-//         keyExtractor={(item) => item.id.toString()}
-//       />
-//     </SafeAreaView>
-//   );
-// };
-
-const stylesCard = StyleSheet.create({
-    cardContent: {
-         flex: 1,
-         // padding: 24,
-         backgroundColor: '#eaeaea',
-         marginHorizontal : 18,
-         marginVertical : 10,
-         marginBottom : 50,
-     },
-     cardtitle : {
-         // marginTop: 16,
-     paddingVertical: 8,
-     borderWidth: 4,
-     borderColor: '#20232a',
-     borderRadius: 6,
-     backgroundColor: '#61dafb',
-     color: '#20232a',
-     textAlign: 'center',
-     fontSize: 30,
-     fontWeight: 'bold',
-     },
-  })
 export default Categorie;

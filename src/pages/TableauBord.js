@@ -19,7 +19,6 @@ export default function TableauBord() {
     const [currentMonth, setCurrentMonth] = useState('');
 
       useEffect(() => {  
-        
         moment.locale('fr');
         var date = moment().utcOffset('+02:00').format('DD');
         var month = moment().utcOffset('+02:00').format('MMMM');

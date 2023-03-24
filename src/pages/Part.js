@@ -8,7 +8,7 @@ function Part({navigation}){
   const [data, setData] = useState([]);
 
    useEffect(() => {
-    fetch('http://192.168.1.19:8000/api/part')
+    fetch(`${API_PATH}/part`)
     .then((response) => response.json())
     .then((json) => setData(json))
     .catch((error) => console.error(error))

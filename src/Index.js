@@ -20,6 +20,7 @@ import Module from './pages/Module.js';
 import Categorie from './pages/Categorie.js';
 import Part from './pages/Part.js';
 
+
 function Home() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();

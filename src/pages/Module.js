@@ -13,7 +13,7 @@ function Module({navigation}){
 
   const getModules = async () => {
     try {
-      const response = await fetch("http://192.168.1.128:8000/api/modules")
+      const response = await fetch(`${API_PATH}/modules`)
       const json = await response.json();
       setModules(json)
       // console.log(modules[0].name)s
@@ -25,14 +25,14 @@ function Module({navigation}){
   }
 
   const getModulesCategories = async () =>{
-    const response = await fetch('http://192.168.1.128:8000/api/module-categories')
+    const response = await fetch(`${API_PATH}/modulescategories`)
     const json = await response.json();
     setModulesCategories(json)
     // console.log(modulesCategories)
   }
 
   const getCategories = async () => {
-    const response = await fetch('http://192.168.1.128:8000/api/categories')
+    const response = await fetch(`${API_PATH}/categories`)
     const json = await response.json();
     setCategories(json);
     // console.log(categories);

@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import useToken from "../../features/loginAPi/useToken.js";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {API_PATH} from "@env";
 
 
 const ApiContext = createContext();
@@ -19,7 +20,7 @@ export const ApiProvider  = ({children}) => {
 
     console.log(process.env, "env");
     const  login =  (credentials) => {
-        return fetch('http://192.168.1.127:8000/api/login', {
+        return fetch(`${API_PATH}/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -45,7 +46,7 @@ export const ApiProvider  = ({children}) => {
     //const navigation = useNavigation();
     const fetchUser = () => {
         console.log(token, "fetchToken")
-            fetch('http://192.168.1.127:8000/api/user-profile', {
+            fetch(`${API_PATH}/user-profile`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

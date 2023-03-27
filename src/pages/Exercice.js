@@ -1,7 +1,9 @@
 import {React, useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
-import {Text, View, TouchableOpacity,ScrollView, ActivityIndicator} from 'react-native';
+import {Text, View, TouchableOpacity,ScrollView, ActivityIndicator, StyleSheet} from 'react-native';
 import stylesCard from '../components/Card';
+import {API_PATH} from "@env";
+
 
 
 function Exercice() {
@@ -16,7 +18,7 @@ function Exercice() {
   const idPart = parseInt(route.params.id);
 
   const getExercices = () => {
-    fetch("http://192.168.1.123:8000/api/exercices")
+    fetch(`${API_PATH}/exercices`)
       .then(response => response.json())
       .then(json =>{
         setExercices(json)
@@ -28,7 +30,7 @@ function Exercice() {
   }
 
   const getLessons = () => {
-    fetch("http://192.168.1.123:8000/api/lessons")
+    fetch(`${API_PATH}/lessons`)
       .then(response => response.json())
       .then(json =>{
         setLessons(json)
@@ -63,11 +65,11 @@ function Exercice() {
   if(filterExercices.length === 0 && filterLessons.length === 0){
     <View>
       <View>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Liste des exercices</Text>
+        <Text>Liste des exercices</Text>
         <Text>Pas d'exercice</Text>
       </View>
       <View>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Liste des exercices</Text>
+        <Text>Liste des exercices</Text>
         <Text>Pas de leçons</Text>
       </View>
     </View>
@@ -75,8 +77,8 @@ function Exercice() {
 
   return(
     <ScrollView>
-      <View style={{ marginVertical: 10 }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Liste des leçons</Text>
+      <View>
+        <Text style={ListExerciceLesson.styleText}>Liste des leçons</Text>
         {loading ?(
         <View>
           <ActivityIndicator size="large" color="#28abe2"/>
@@ -93,8 +95,8 @@ function Exercice() {
         </View>
       )}
       </View>
-      <View style={{ marginVertical: 10 }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Liste des exercices</Text>
+      <View>
+        <Text style={ListExerciceLesson.styleText}>Liste des exercices</Text>
         {loading ?(
         <View>
           <ActivityIndicator size="large" color="#28abe2"/>
@@ -114,4 +116,13 @@ function Exercice() {
     </ScrollView>
   );
 }
+
+const ListExerciceLesson = StyleSheet.create({
+  styleText : {
+    textAlign : 'center',
+    fontWeight : 'bold',
+    fontSize : 25,
+    marginTop : 20,
+  }
+})
 export default Exercice;

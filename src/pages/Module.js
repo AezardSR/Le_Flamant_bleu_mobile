@@ -3,6 +3,8 @@ import { View,Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import stylesCard from '../components/Card';
+import {API_PATH} from "@env";
+
 
 function Module(){
 
@@ -11,7 +13,7 @@ function Module(){
   const navigation = useNavigation();
 
   const getModules = () => {
-    fetch("http://192.168.1.123:8000/api/modules")
+    fetch(`${API_PATH}/modules`)
       .then(response => response.json())
       .then(json =>{
         setModules(json)

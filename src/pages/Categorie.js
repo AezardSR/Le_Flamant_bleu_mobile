@@ -2,6 +2,7 @@ import {React, useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import stylesCard from '../components/Card';
+import {API_PATH} from "@env";
 
 function Categorie(){
 
@@ -17,7 +18,7 @@ function Categorie(){
   // recuperation des données de la table categorie
   const getCategories = async () => {
     try {
-      const response = await fetch("http://192.168.1.123:8000/api/categories");
+      const response = await fetch(`${API_PATH}/categories`);
       const json = await response.json();
       setCategories(json);
       setLoading(false)
@@ -30,7 +31,7 @@ function Categorie(){
   // recuperation des données de la table modulescategories
   const getIdCatModul = async () => {
     try {
-    const response = await fetch("http://192.168.1.123:8000/api/module-categories");
+    const response = await fetch(`${API_PATH}/module-categories`);
     const json = await response.json();
     setIdCatModul(json);
     } catch(error){

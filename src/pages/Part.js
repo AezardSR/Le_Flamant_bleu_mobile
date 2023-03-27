@@ -2,6 +2,8 @@ import {React, useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Text, View, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import stylesCard from '../components/Card';
+import {API_PATH} from "@env";
+
 
 function Part(){
 
@@ -13,7 +15,7 @@ function Part(){
   const idCategorie = parseInt(route.params.id)
 
   const getParts = () => {
-    fetch("http://192.168.1.123:8000/api/parts")
+    fetch(`${API_PATH}/parts`)
       .then(response => response.json())
       .then(json =>{
         setParts(json)

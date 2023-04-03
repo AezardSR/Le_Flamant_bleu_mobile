@@ -1,36 +1,63 @@
-import * as React from 'react';
-import { View, FlatList, ActivityIndicator, TouchableOpacity} from 'react-native';
-import { useState, useEffect } from 'react';
-import Card from '../components/Card.js';
+import {React, useEffect, useState} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {Text, View, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
+import stylesCard from '../components/Card';
+import {API_PATH} from "@env";
 
-function Part({navigation}){
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
 
-   useEffect(() => {
-    fetch(`${API_PATH}/part`)
-    .then((response) => response.json())
-    .then((json) => setData(json))
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-    console.log(data)
-   }, []);
-  return (
-    <View style={{flex: 1, padding: 24}}>
-            {isLoading ? (
-             <ActivityIndicator />
-           ) : (
-             <FlatList
-               data={data}
-               keyExtractor={({id}) => id}
-               renderItem={({item}) => ( 
-               <TouchableOpacity onPress={()=> navigation.navigate('Categorie')}>
-                 <Card categorie={item.name} />
-                 </TouchableOpacity>
-               )}
-             />
-           )}
-    </View>
-  );
+function Part(){
+
+  const [loading, setLoading] = useState(true);
+  const [parts, setParts] = useState([]);
+  const [filtered, setFilter] = useState([]);
+  const route = useRoute();
+  const navigation = useNavigation();
+  const idCategorie = parseInt(route.params.id)
+
+  const getParts = () => {
+    fetch(`${API_PATH}/parts`)
+      .then(response => response.json())
+      .then(json =>{
+        setParts(json)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error("part" + error)
+      })
+  }
+
+  useEffect(() => {
+    getParts();
+  },[])
+
+  useEffect(() => {
+    const filtered = parts.filter((item) => item.categories_id === idCategorie);
+    setFilter(filtered)
+  }, [parts, idCategorie]);
+
+  const goToExercices = (id) => {
+    navigation.navigate('Exercice', {id} )
+  }
+return(
+  <View>
+    {loading ?(
+        <View>
+          <ActivityIndicator size="large" color="#28abe2"/>
+        </View>
+      ) : (
+    <FlatList
+      data={filtered}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({item}) => (
+        <View style={stylesCard.cardContainer}>
+        <TouchableOpacity onPress={() => goToExercices(item.id)} style={stylesCard.card}>
+          <Text style={stylesCard.cardtitle}>{item.name}</Text>
+        </TouchableOpacity>
+        </View>
+      )}
+    />
+    )}
+  </View>
+);
 }
 export default Part;

@@ -1,13 +1,12 @@
-import React, {Component, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChalkboard, faGraduationCap, faHouse } from '@fortawesome/free-solid-svg-icons';
 import {  } from '@fortawesome/free-solid-svg-icons';
-import { ApiContext, ApiProvider } from './features/loginAPi/ApiContext.js';
+import { ApiContext } from './features/loginAPi/ApiContext.js';
 import TableauBord from './pages/TableauBord.js';
 import Lesson from './pages/Lesson.js';
 import Exercice from './pages/Exercice.js';

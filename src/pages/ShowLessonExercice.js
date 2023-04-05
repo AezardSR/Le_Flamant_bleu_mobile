@@ -6,8 +6,6 @@ function ShowLessonExercice(){
 
 const route = useRoute();
 const {filterLessons , filterExercices} = route.params;
-// console.log("exercice " + filterExercices.content);
-// console.log(filterLessons.name);
 
 if (filterLessons){
     return(

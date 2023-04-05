@@ -1,4 +1,5 @@
 import * as React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, Button, Image, TextInput, StyleSheet } from 'react-native';
@@ -37,9 +38,15 @@ const styles = StyleSheet.create({
       },
   });
 
-class UserProfil extends React.Component {
-    render() {
-    // const navigation = useNavigation();
+function UserProfil() {
+    const navigation = useNavigation();
+
+    const handleLogout = async () => {//s'active lors du clic sur le bouton
+      if(await AsyncStorage.getItem('token') !== null) {
+        await AsyncStorage.removeItem('token'); //supprime le token de l'AsyncStorage
+      }
+      navigation.navigate('Login'); //redirige vers la page de connexion
+    }
 
     return (
       <ScrollView>
@@ -62,11 +69,10 @@ class UserProfil extends React.Component {
 
         <View style={styles.separator} />
 
-        <Button color='#d10000' title="Déconnexion" />
+        <Button onPress={handleLogout} color='#d10000' title="Déconnexion" />
 
       </ScrollView>
-    );
+    )
   }
-}
 
 export default UserProfil;

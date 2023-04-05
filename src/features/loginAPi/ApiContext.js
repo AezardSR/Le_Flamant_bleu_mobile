@@ -1,25 +1,23 @@
 import React, { createContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useToken from "../../features/loginAPi/useToken.js";
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {API_PATH} from "@env";
+import {API_PATH} from "@env"; // chemin de l'api récuperer depuis le .env
 
 
-const ApiContext = createContext();
+const ApiContext = createContext(); // création du contexte pour une utilisation globale
 
-export { ApiContext };
+export { ApiContext }; // on exporte le contexte pour une utilisation dans les différents composants
 
 export const ApiProvider  = ({children}) => {
-    const [user, setUser] = useState({})
-    const {token, setToken} = useToken();
+    const [user, setUser] = useState({}) // mise en place du state user pour l'utilisation globale
+    const {token, setToken} = useToken(); // récupération du token depuis le contexte
         
     useEffect(() => {
-        fetchUser()
+        fetchUser() // récupération des informations utilisateur quand la valeur de token est mis à jour 
     },[token])
 
-    console.log(process.env, "env");
-    const  login =  (credentials) => {
+    //utilisée pour envoyer les informations d'authentification à l'API. Vous utilisez fetch pour envoyer une requête POST avec les informations d'identification et stocker le token dans le stockage local en utilisant AsyncStorage
+    const login =  (credentials) => {
         return fetch(`${API_PATH}/login`, {
           method: 'POST',
           headers: {
@@ -30,23 +28,19 @@ export const ApiProvider  = ({children}) => {
         .then(response => response.json())
         .then( (data)  => {
             if(data.message === "connected"){
-                console.log(data.access_token)
-                    AsyncStorage.setItem("token", JSON.stringify(data.access_token));
+                AsyncStorage.setItem("token", JSON.stringify(data.access_token));
                 setToken(data.access_token)
             } else {
-                console.log(data)
+                alert(data.password)
             }
                 
         })
         .catch((error) => { 
-            alert("result:"+error);
-            console.log('error: ' + error.message); })
+            alert(error.message);})
     }
-
-    //const navigation = useNavigation();
+    // utilisée pour récupérer les informations de l'utilisateur à partir de l'API en utilisant le token stocké dans le contexte. Si les informations sont récupérées avec succès, elles sont stockées dans le state user
     const fetchUser = () => {
-        console.log(token, "fetchToken")
-            fetch(`${API_PATH}/user-profile`, {
+        fetch(`${API_PATH}/user-profile`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -56,16 +50,16 @@ export const ApiProvider  = ({children}) => {
                 res.json()
             )).then((data) => {
                 if(data.message == "succes"){
-                    console.log(data.firstname, "data.firstname");
                     setUser(data);
-                    //navigation.navigate('Home');
-                } 
+                } else {
+                    setUser("disconnected")
+                }
             })
                 
     };
 
     return (
-        <ApiContext.Provider value={{login, fetchUser, user}}>
+        <ApiContext.Provider value={{login, fetchUser, user}/* on retourne le contexte ApiContext.Provider avec les fonctions login, fetchUser et user pour être utilisé dans les autres composants de l'application. */}> 
             {children}
         </ApiContext.Provider>
     )

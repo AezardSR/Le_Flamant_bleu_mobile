@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, {useContext, useState, useEffect} from 'react';
-import {View, Image, TextInput, Button, StyleSheet} from 'react-native';
+import {View, Image, TextInput, Button, StyleSheet, Text} from 'react-native';
 import { ApiContext } from './ApiContext';//importation du contexte pour l'utilisation de la fonction login et du state user
 
 
 export default function LoginScreen({setToken}) {
   const navigation = useNavigation(); // définition de la navigation
-  const {login, user} = useContext(ApiContext); // importation du contexte pour l'utilisation de la fonction login et du state user
+  const {login, user, passError, mailError, loginError} = useContext(ApiContext); // importation du contexte pour l'utilisation de la fonction login et du state user
   const [mail, setMail] = useState(); // définition des states pour la récupération des informations de connexion, notament ici des du mail
   const [password, setPassword] = useState(); // définition des states pour la récupération des informations de connexion, notament ici des du mot de passe
   
@@ -29,8 +29,11 @@ export default function LoginScreen({setToken}) {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../../assets/images/logo_la_manu.png')} />
+      <Text style={styles.TextError}>{mailError}</Text>
       <TextInput style={styles.inputView} onChangeText={e => setMail(e)} placeholder='Mail'></TextInput>
+      <Text style={styles.TextError}>{passError}</Text>
       <TextInput secureTextEntry={true} style={styles.inputView} onChangeText={e => setPassword(e)} placeholder='Mot de passe'></TextInput>
+      <Text style={styles.TextError}>{loginError}</Text>
       <Button onPress={handleSubmit} title='Connexion'/>
     </View>
   )
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: "80%",
     height: 45,
-    marginBottom: 20,
+    marginBottom: 2,
     padding: 10,
     alignItems: "center",
   },
@@ -63,5 +66,11 @@ const styles = StyleSheet.create({
       marginBottom: 40,
       width: 250,
       height: 250,
-    }
+    },
+  TextError :{
+    color: "red",
+    fontSize: 12,
+    marginTop: 2,
+    marginBottom: 4,
+  },
 })

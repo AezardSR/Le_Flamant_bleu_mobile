@@ -11,6 +11,9 @@ export { ApiContext }; // on exporte le contexte pour une utilisation dans les d
 export const ApiProvider  = ({children}) => {
     const [user, setUser] = useState({}) // mise en place du state user pour l'utilisation globale
     const {token, setToken} = useToken(); // récupération du token depuis le contexte
+    const [passError, setPassError] = useState(false) // mise en place du state passError pour l'utilisation sur la page de connexion
+    const [mailError, setMailError] = useState(false) // mise en place du state mailError pour l'utilisation sur la page de connexion
+    const [loginError, setLoginError] = useState(false) // mise en place du state loginError pour l'utilisation sur la page de connexion
         
     useEffect(() => {
         fetchUser() // récupération des informations utilisateur quand la valeur de token est mis à jour 
@@ -31,7 +34,10 @@ export const ApiProvider  = ({children}) => {
                 AsyncStorage.setItem("token", JSON.stringify(data.access_token));
                 setToken(data.access_token)
             } else {
-                alert(data.password)
+                console.log(data)
+                setMailError(data.mail)
+                setPassError(data.password)
+                setLoginError(data.message)
             }
                 
         })
@@ -59,7 +65,7 @@ export const ApiProvider  = ({children}) => {
     };
 
     return (
-        <ApiContext.Provider value={{login, fetchUser, user}/* on retourne le contexte ApiContext.Provider avec les fonctions login, fetchUser et user pour être utilisé dans les autres composants de l'application. */}> 
+        <ApiContext.Provider value={{login, fetchUser, user, passError, mailError, loginError}/* on retourne le contexte ApiContext.Provider avec les fonctions login, fetchUser et user pour être utilisé dans les autres composants de l'application. */}> 
             {children}
         </ApiContext.Provider>
     )

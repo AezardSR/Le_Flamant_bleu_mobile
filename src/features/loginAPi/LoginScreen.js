@@ -12,18 +12,18 @@ export default function LoginScreen({setToken}) {
   
 //redirige vers la page d'accueil si l'utilisateur est connecté, le useEffect est appelé à chaque fois que la valeur de user est mise à jour
   useEffect(() => {
-    if(user["message"]==="succes"){// on vérifie que l'utilisateur est bien connecté et que le contenu de user est bien celui d'un utilisateur connecté
+    if(user.message==="success"){// on vérifie que l'utilisateur est bien connecté et que le contenu de user est bien celui d'un utilisateur connecté
       navigation.navigate("Home") // permet la navigation vers la page d'accueil
     }
   }, [user])
 
 //fonction qui permet de récupérer les informations de connexion et de les envoyer à l'api à l'aide de login qui est défini dans le contexte
   const handleSubmit = async e => {
+    
     login({
         mail,
         password
     });
-    
   }
 //mise en place de la vue avec les différents composants et éléments
   return (

@@ -15,9 +15,7 @@ export const ApiProvider  = ({children}) => {
     const [mailError, setMailError] = useState(false) // mise en place du state mailError pour l'utilisation sur la page de connexion
     const [loginError, setLoginError] = useState(false) // mise en place du state loginError pour l'utilisation sur la page de connexion
         
-    useEffect(() => {
-        fetchUser() // récupération des informations utilisateur quand la valeur de token est mis à jour 
-    },[token])
+
 
     //utilisée pour envoyer les informations d'authentification à l'API. Vous utilisez fetch pour envoyer une requête POST avec les informations d'identification et stocker le token dans le stockage local en utilisant AsyncStorage
     const login =  (credentials) => {
@@ -34,7 +32,6 @@ export const ApiProvider  = ({children}) => {
                 AsyncStorage.setItem("token", JSON.stringify(data.access_token));
                 setToken(data.access_token)
             } else {
-                console.log(data)
                 setMailError(data.mail)
                 setPassError(data.password)
                 setLoginError(data.message)
@@ -55,7 +52,8 @@ export const ApiProvider  = ({children}) => {
             }).then((res) => (
                 res.json()
             )).then((data) => {
-                if(data.message == "succes"){
+                console.log(user)
+                if(data.message == "success"){
                     setUser(data);
                 } else {
                     setUser("disconnected")
@@ -63,6 +61,10 @@ export const ApiProvider  = ({children}) => {
             })
                 
     };
+
+    useEffect(() => {
+        fetchUser() // récupération des informations utilisateur quand la valeur de token est mis à jour 
+    },[token])
 
     return (
         <ApiContext.Provider value={{login, fetchUser, user, passError, mailError, loginError}/* on retourne le contexte ApiContext.Provider avec les fonctions login, fetchUser et user pour être utilisé dans les autres composants de l'application. */}> 

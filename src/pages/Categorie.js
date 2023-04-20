@@ -16,28 +16,42 @@ function Categorie(){
   const idModule = parseInt(route.params.id); // recuperation de l'ID du module sur lequelle on a cliqué
 
   // recuperation des données de la table categorie
-  const getCategories = async () => {
-    try {
-      const response = await fetch(`${API_PATH}/categories`);
-      const json = await response.json();
-      setCategories(json);
-      setLoading(false)
-    } catch (error) {
-      console.error("erreur categorie   " + error);
-    }
-  };
-  
+  const getCategories = () => {
+    return fetch(`${API_PATH}/categories`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setCategories(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Categories " + error)
+     })
+ }
 
   // recuperation des données de la table modulescategories
-  const getIdCatModul = async () => {
-    try {
-    const response = await fetch(`${API_PATH}/module-categories`);
-    const json = await response.json();
-    setIdCatModul(json);
-    } catch(error){
-      console.error("erreur idcat   " + error);
-    }
-  };
+  const getIdCatModul = () => {
+    return fetch(`${API_PATH}/module-categories`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setIdCatModul(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur modulecat" + error)
+     })
+ }
 
   useEffect(() => {
     getCategories();

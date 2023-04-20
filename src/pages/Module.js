@@ -13,7 +13,13 @@ function Module(){
   const navigation = useNavigation();
 
   const getModules = () => {
-    fetch(`${API_PATH}/modules`)
+     return fetch(`${API_PATH}/modules`,{
+      method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization' : 'bearer ' + token
+            }
+     })
       .then(response => response.json())
       .then(json =>{
         setModules(json)

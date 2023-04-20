@@ -18,28 +18,40 @@ function Exercice() {
   const idPart = parseInt(route.params.id);
 
   const getExercices = () => {
-    fetch(`${API_PATH}/exercices`)
-      .then(response => response.json())
-      .then(json =>{
-        setExercices(json)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error("Erreur Exercices " + error)
-      })
-  }
-
+    return fetch(`${API_PATH}/exercices`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setExercices(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Exercices " + error)
+     })
+ }
   const getLessons = () => {
-    fetch(`${API_PATH}/lessons`)
-      .then(response => response.json())
-      .then(json =>{
-        setLessons(json)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error("Erreur lesson" + error)
-      })
-  }
+    return fetch(`${API_PATH}/lessons`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setLessons(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Lessons " + error)
+     })
+ }
+
   useEffect(() =>{
     getExercices();
     getLessons();

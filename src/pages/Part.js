@@ -15,17 +15,22 @@ function Part(){
   const idCategorie = parseInt(route.params.id)
 
   const getParts = () => {
-    fetch(`${API_PATH}/parts`)
-      .then(response => response.json())
-      .then(json =>{
-        setParts(json)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error("part" + error)
-      })
-  }
-
+    return fetch(`${API_PATH}/parts`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setParts(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Parts " + error)
+     })
+ }
   useEffect(() => {
     getParts();
   },[])

@@ -19,6 +19,7 @@ export default function useToken() {
         setToken(userToken);
       };
       // retourne les fonctions et la valeur du token pour une utilisation dans le contexte et les différente pages
+      console.log(token, "useToken")
     return {
         setToken: saveToken,
         getToken,

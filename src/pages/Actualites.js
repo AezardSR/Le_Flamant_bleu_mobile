@@ -3,7 +3,6 @@ import { View,Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import stylesCard from '../components/Card';
-import {API_PATH} from "@env";
 import { ApiContext } from '../features/loginAPi/ApiContext';
 
 function Actualite(){
@@ -13,10 +12,9 @@ function Actualite(){
   const [actualites, setActualites] = useState([]);
   const navigation = useNavigation();
 
-  token
 
   const getActualites = () => {
-    requestAPi('/modules', 'GET', null)
+    requestAPi('/actualites', 'GET', null)
       .then(response => response.json())
       .then(json =>{
         setActualites(json)

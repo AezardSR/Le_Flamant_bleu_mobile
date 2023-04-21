@@ -1,15 +1,17 @@
-import {React, useEffect, useState} from 'react';
+import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, View, TouchableOpacity,ScrollView, ActivityIndicator, StyleSheet} from 'react-native';
 import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
+import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
 
 
 function Exercice() {
 
-  const {token, setToken} = useToken(); // récupération du token depuis le contexte
+  const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [exercices, setExercices] = useState([]);
   const [lessons, setLessons] = useState([]);
@@ -20,13 +22,7 @@ function Exercice() {
   const idPart = parseInt(route.params.id);
 
   const getExercices = () => {
-    fetch(`${API_PATH}/exercices`,{
-     method: 'GET',
-           headers: {
-               'content-type': 'application/json',
-               'Authorization' : 'bearer ' + token
-           }
-    })
+    requestAPI('/exercices', 'GET', null)
      .then(response => response.json())
      .then(json =>{
        setExercices(json)
@@ -37,13 +33,7 @@ function Exercice() {
      })
  }
   const getLessons = () => {
-    return fetch(`${API_PATH}/lessons`,{
-     method: 'GET',
-           headers: {
-               'content-type': 'application/json',
-               'Authorization' : 'bearer ' + token
-           }
-    })
+    requestAPI('/lessons', 'GET', null)
      .then(response => response.json())
      .then(json =>{
        setLessons(json)
@@ -77,6 +67,7 @@ function Exercice() {
     navigation.navigate("Cour/Exercice", {filterExercices})
   }
   if(filterExercices.length === 0 && filterLessons.length === 0){
+    return(
     <View>
       <View>
         <Text>Liste des exercices</Text>
@@ -87,6 +78,7 @@ function Exercice() {
         <Text>Pas de leçons</Text>
       </View>
     </View>
+    )
   }
 
   return(

@@ -9,7 +9,6 @@ import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
 function Module(){
   const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
-  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [modules, setModules] = useState([]);
   const navigation = useNavigation();
@@ -21,7 +20,6 @@ function Module(){
         console.log(json)
         setModules(json)
         setLoading(false)
-        console.log(modules)
       })
       .catch(error => {
         console.error("Erreur Module " + error)

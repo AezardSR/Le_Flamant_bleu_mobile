@@ -53,6 +53,13 @@ function Home() {
         <FontAwesomeIcon icon={faChalkboard} />
       ),
     }} />
+    <Tab.Screen name="Actualités" component={Actualite} options={{
+      title: 'Actualités',
+      tabBarLabel: 'Actualites',
+      tabBarIcon: () => (
+        <FontAwesomeIcon icon={faChalkboard} />
+      ),
+    }} />
     <Tab.Screen name="UserProfil" component={UserProfil} options={{
           title: 'Profil de '+userInfo.firstname,
           tabBarLabel: 'Profil',

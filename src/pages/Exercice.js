@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, View, TouchableOpacity,ScrollView, ActivityIndicator, StyleSheet} from 'react-native';
+import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
 
@@ -8,6 +9,7 @@ import {API_PATH} from "@env";
 
 function Exercice() {
 
+  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [exercices, setExercices] = useState([]);
   const [lessons, setLessons] = useState([]);
@@ -18,7 +20,7 @@ function Exercice() {
   const idPart = parseInt(route.params.id);
 
   const getExercices = () => {
-    return fetch(`${API_PATH}/exercices`,{
+    fetch(`${API_PATH}/exercices`,{
      method: 'GET',
            headers: {
                'content-type': 'application/json',

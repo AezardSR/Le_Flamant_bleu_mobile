@@ -1,12 +1,14 @@
 import {React, useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
 
 function Categorie(){
 
   // etat des composants, on initialise les variables dans un tableau vide au depart
+  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [idCatModul, setIdCatModul] = useState([]); 
@@ -36,7 +38,7 @@ function Categorie(){
 
   // recuperation des données de la table modulescategories
   const getIdCatModul = () => {
-    return fetch(`${API_PATH}/module-categories`,{
+    fetch(`${API_PATH}/module-categories`,{
      method: 'GET',
            headers: {
                'content-type': 'application/json',
@@ -47,6 +49,7 @@ function Categorie(){
      .then(json =>{
        setIdCatModul(json)
        setLoading(false)
+       console.log(categories)
      })
      .catch(error => {
        console.error("Erreur modulecat" + error)

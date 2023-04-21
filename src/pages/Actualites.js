@@ -4,16 +4,17 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
-
+import useToken from "../features/loginAPi/useToken.js";
 
 function Actualite(){
 
+  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [actualites, setActualites] = useState([]);
   const navigation = useNavigation();
 
   const getActualites = () => {
-     return fetch(`${API_PATH}/modules`,{
+     fetch(`${API_PATH}/modules`,{
       method: 'GET',
             headers: {
                 'content-type': 'application/json',

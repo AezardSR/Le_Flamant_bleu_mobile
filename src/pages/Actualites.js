@@ -34,9 +34,9 @@ function Actualite(){
     getActualites();
   }, [])
 
-//   const goToCategories = (id) =>{
-//     navigation.navigate('Librairies/Framework', {id});
-//   };
+  const goToShowActualites = (actualites) =>{
+    navigation.navigate('Actualité', {actualites});
+  };
   return(
     <View>
       {loading ?(
@@ -49,8 +49,7 @@ function Actualite(){
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => (
           <View style={stylesCard.cardContainer}>
-            {/* <TouchableOpacity onPress={() => goToCategories(item.id)} style={stylesCard.card}> */}
-            <TouchableOpacity style={stylesCard.card}>
+            <TouchableOpacity onPress={() => goToShowActualites(item)} style={stylesCard.card}>
               <Text style={stylesCard.cardtitle}>{item.title}</Text>
             </TouchableOpacity>
           </View>

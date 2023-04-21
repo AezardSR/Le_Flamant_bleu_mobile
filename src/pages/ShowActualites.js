@@ -2,33 +2,20 @@ import {React, useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Text, View, FlatList, TouchableOpacity, SafeAreaView,StyleSheet, Image} from 'react-native';
 
-function ShowLessonExercice(){
+function ShowActualite(){
 
 const route = useRoute();
-const {filterLessons , filterExercices} = route.params;
+const {actualites} = route.params;
 
-if (filterLessons){
     return(
         <View>
-            <Text style={style.textName}>{filterLessons.name}</Text>
-            <Text style={style.textDuration}>Durée du cour : {filterLessons.duration} jours</Text>
+            <Text style={style.textName}>{actualites.title}</Text>
+
             <View style={style.contentContainer}>
-                <Text style={style.textContent}>{filterLessons.content}</Text>
+                <Text style={style.textContent}>{actualites.content}</Text>
             </View>
         </View>
         )
-}
-
-if (filterExercices){
-    return(
-        <View>
-            <Text style={style.textName}>{filterExercices.name}</Text>
-            <View style={style.contentContainer}>
-                <Text style={style.textContent}>{filterExercices.content}</Text>
-            </View>
-        </View>
-        )
-}
 }
 const style = StyleSheet.create({
     textName:{
@@ -59,4 +46,4 @@ const style = StyleSheet.create({
     }
     
 })
-export default ShowLessonExercice
+export default ShowActualite

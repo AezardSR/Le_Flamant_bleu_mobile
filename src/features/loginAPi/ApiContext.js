@@ -52,7 +52,6 @@ export const ApiProvider  = ({children}) => {
             }).then((res) => (
                 res.json()
             )).then((data) => {
-                console.log(user)
                 if(data.message == "success"){
                     setUser(data);
                 } else {

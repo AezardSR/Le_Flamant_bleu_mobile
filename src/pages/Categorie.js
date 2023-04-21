@@ -1,12 +1,14 @@
 import {React, useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
 
 function Categorie(){
 
   // etat des composants, on initialise les variables dans un tableau vide au depart
+  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [idCatModul, setIdCatModul] = useState([]); 
@@ -16,28 +18,43 @@ function Categorie(){
   const idModule = parseInt(route.params.id); // recuperation de l'ID du module sur lequelle on a cliqué
 
   // recuperation des données de la table categorie
-  const getCategories = async () => {
-    try {
-      const response = await fetch(`${API_PATH}/categories`);
-      const json = await response.json();
-      setCategories(json);
-      setLoading(false)
-    } catch (error) {
-      console.error("erreur categorie   " + error);
-    }
-  };
-  
+  const getCategories = () => {
+    return fetch(`${API_PATH}/categories`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setCategories(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Categories " + error)
+     })
+ }
 
   // recuperation des données de la table modulescategories
-  const getIdCatModul = async () => {
-    try {
-    const response = await fetch(`${API_PATH}/module-categories`);
-    const json = await response.json();
-    setIdCatModul(json);
-    } catch(error){
-      console.error("erreur idcat   " + error);
-    }
-  };
+  const getIdCatModul = () => {
+    fetch(`${API_PATH}/module-categories`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setIdCatModul(json)
+       setLoading(false)
+       console.log(categories)
+     })
+     .catch(error => {
+       console.error("Erreur modulecat" + error)
+     })
+ }
 
   useEffect(() => {
     getCategories();

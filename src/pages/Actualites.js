@@ -2,21 +2,19 @@ import * as React from 'react';
 import { View,Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
+import useToken from "../features/loginAPi/useToken.js";
 
-
-function Module(){
+function Actualite(){
 
   const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
-  const [modules, setModules] = useState([]);
+  const [actualites, setActualites] = useState([]);
   const navigation = useNavigation();
 
-  const getModules = () => {
-    console.log(token)
-    fetch(`${API_PATH}/modules`,{
+  const getActualites = () => {
+     fetch(`${API_PATH}/modules`,{
       method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -25,22 +23,20 @@ function Module(){
      })
       .then(response => response.json())
       .then(json =>{
-        console.log(json)
-        setModules(json)
+        setActualites(json)
         setLoading(false)
-        console.log(modules)
       })
       .catch(error => {
-        console.error("Erreur Module " + error)
+        console.error("Erreur Actualites " + error)
       })
   }
   useEffect(()=>{
-    getModules();
+    getActualites();
   }, [])
 
-  const goToCategories = (id) =>{
-    navigation.navigate('Librairies/Framework', {id});
-  };
+//   const goToCategories = (id) =>{
+//     navigation.navigate('Librairies/Framework', {id});
+//   };
   return(
     <View>
       {loading ?(
@@ -49,12 +45,13 @@ function Module(){
         </View>
       ) : (
       <FlatList
-        data={modules}
+        data={actualites}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => (
           <View style={stylesCard.cardContainer}>
-            <TouchableOpacity onPress={() => goToCategories(item.id)} style={stylesCard.card}>
-              <Text style={stylesCard.cardtitle}>{item.name}</Text>
+            {/* <TouchableOpacity onPress={() => goToCategories(item.id)} style={stylesCard.card}> */}
+            <TouchableOpacity style={stylesCard.card}>
+              <Text style={stylesCard.cardtitle}>{item.title}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -63,4 +60,4 @@ function Module(){
     </View>
   );
 }
-export default Module;
+export default Actualite;

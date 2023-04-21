@@ -3,10 +3,13 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {Text, View, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
+import useToken from '../features/loginAPi/useToken';
+
 
 
 function Part(){
 
+  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [parts, setParts] = useState([]);
   const [filtered, setFilter] = useState([]);
@@ -15,17 +18,22 @@ function Part(){
   const idCategorie = parseInt(route.params.id)
 
   const getParts = () => {
-    fetch(`${API_PATH}/parts`)
-      .then(response => response.json())
-      .then(json =>{
-        setParts(json)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error("part" + error)
-      })
-  }
-
+    fetch(`${API_PATH}/parts`,{
+     method: 'GET',
+           headers: {
+               'content-type': 'application/json',
+               'Authorization' : 'bearer ' + token
+           }
+    })
+     .then(response => response.json())
+     .then(json =>{
+       setParts(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Parts " + error)
+     })
+ }
   useEffect(() => {
     getParts();
   },[])

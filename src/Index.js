@@ -19,6 +19,7 @@ import Module from './pages/Module.js';
 import Categorie from './pages/Categorie.js';
 import Part from './pages/Part.js';
 import ShowLessonExercice from './pages/ShowLessonExercice.js';
+import Actualite from './pages/Actualites.js';
 
 
 function Home() {
@@ -48,6 +49,13 @@ function Home() {
     <Tab.Screen name="Cours" component={Module} options={{
       title: 'Langage',
       tabBarLabel: 'Cours',
+      tabBarIcon: () => (
+        <FontAwesomeIcon icon={faChalkboard} />
+      ),
+    }} />
+    <Tab.Screen name="Actualités" component={Actualite} options={{
+      title: 'Actualités',
+      tabBarLabel: 'Actualites',
       tabBarIcon: () => (
         <FontAwesomeIcon icon={faChalkboard} />
       ),
@@ -85,6 +93,8 @@ const index = () => {
         <Stack.Screen name="Intitulé des parties" component={Part} />
         <Stack.Screen name="Exercice" component={Exercice} />
         <Stack.Screen name="Cour/Exercice" component={ShowLessonExercice} />
+        <Stack.Screen name="Actualites" component={Actualite} />
+
 
     </Stack.Navigator>
   </NavigationContainer>

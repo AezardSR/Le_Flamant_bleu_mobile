@@ -4,31 +4,22 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
-import {API_PATH} from "@env";
+import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
 
 function Module(){
-
-  const {token, setToken} = useToken(); // récupération du token depuis le contexte
+  const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [modules, setModules] = useState([]);
   const navigation = useNavigation();
 
   const getModules = () => {
-    console.log(token)
-    fetch(`${API_PATH}/modules`,{
-      method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                'Authorization' : 'bearer ' + token
-            }
-     })
+    requestAPI('/modules', 'GET', null)
       .then(response => response.json())
       .then(json =>{
         console.log(json)
         setModules(json)
         setLoading(false)
-        console.log(modules)
       })
       .catch(error => {
         console.error("Erreur Module " + error)

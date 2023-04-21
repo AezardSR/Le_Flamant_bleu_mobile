@@ -3,24 +3,18 @@ import { View,Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import stylesCard from '../components/Card';
-import {API_PATH} from "@env";
-import useToken from "../features/loginAPi/useToken.js";
+import { ApiContext } from '../features/loginAPi/ApiContext';
 
 function Actualite(){
 
-  const {token, setToken} = useToken(); // récupération du token depuis le contexte
+  const {requestAPi} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [actualites, setActualites] = useState([]);
   const navigation = useNavigation();
 
+
   const getActualites = () => {
-     fetch(`${API_PATH}/modules`,{
-      method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                'Authorization' : 'bearer ' + token
-            }
-     })
+    requestAPi('/actualites', 'GET', null)
       .then(response => response.json())
       .then(json =>{
         setActualites(json)

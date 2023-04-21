@@ -16,6 +16,26 @@ export const ApiProvider  = ({children}) => {
     const [loginError, setLoginError] = useState(false) // mise en place du state loginError pour l'utilisation sur la page de connexion
         
 
+    const requestAPI = (url, method, body) => {
+            if(body === null){
+                return fetch(`${API_PATH}${url}`, {
+                    method: method,
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization' : 'bearer ' + token
+                    },
+                })
+            } else {
+                return fetch(`${API_PATH}${url}`, {
+                    method: method,
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization' : 'bearer ' + token
+                    },
+                    body: JSON.stringify(body)
+                })
+            }
+    }
 
     //utilisée pour envoyer les informations d'authentification à l'API. Vous utilisez fetch pour envoyer une requête POST avec les informations d'identification et stocker le token dans le stockage local en utilisant AsyncStorage
     const login =  (credentials) => {
@@ -43,16 +63,10 @@ export const ApiProvider  = ({children}) => {
     }
     // utilisée pour récupérer les informations de l'utilisateur à partir de l'API en utilisant le token stocké dans le contexte. Si les informations sont récupérées avec succès, elles sont stockées dans le state user
     const fetchUser = () => {
-        fetch(`${API_PATH}/user-profile`, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                'Authorization' : 'bearer ' + token
-            }
-            }).then((res) => (
+        requestAPI("/user-profile", "GET", null)
+            .then((res) => (
                 res.json()
             )).then((data) => {
-                console.log(user)
                 if(data.message == "success"){
                     setUser(data);
                 } else {
@@ -67,7 +81,7 @@ export const ApiProvider  = ({children}) => {
     },[token])
 
     return (
-        <ApiContext.Provider value={{login, fetchUser, user, passError, mailError, loginError}/* on retourne le contexte ApiContext.Provider avec les fonctions login, fetchUser et user pour être utilisé dans les autres composants de l'application. */}> 
+        <ApiContext.Provider value={{login, fetchUser, user, passError, mailError, loginError, requestAPI}/* on retourne le contexte ApiContext.Provider avec les fonctions login, fetchUser et user pour être utilisé dans les autres composants de l'application. */}> 
             {children}
         </ApiContext.Provider>
     )

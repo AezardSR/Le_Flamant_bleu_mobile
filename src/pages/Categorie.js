@@ -1,13 +1,17 @@
-import {React, useEffect, useState} from 'react';
+import * as React from 'react';
+import { useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import {API_PATH} from "@env";
+import { ApiContext } from '../features/loginAPi/ApiContext.js';
+
 
 function Categorie(){
 
   // etat des composants, on initialise les variables dans un tableau vide au depart
+  const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
@@ -19,13 +23,7 @@ function Categorie(){
 
   // recuperation des données de la table categorie
   const getCategories = () => {
-    return fetch(`${API_PATH}/categories`,{
-     method: 'GET',
-           headers: {
-               'content-type': 'application/json',
-               'Authorization' : 'bearer ' + token
-           }
-    })
+    requestAPI('/categories', 'GET', null)
      .then(response => response.json())
      .then(json =>{
        setCategories(json)
@@ -38,13 +36,7 @@ function Categorie(){
 
   // recuperation des données de la table modulescategories
   const getIdCatModul = () => {
-    fetch(`${API_PATH}/module-categories`,{
-     method: 'GET',
-           headers: {
-               'content-type': 'application/json',
-               'Authorization' : 'bearer ' + token
-           }
-    })
+    requestAPI('/module-categories', 'GET', null)
      .then(response => response.json())
      .then(json =>{
        setIdCatModul(json)

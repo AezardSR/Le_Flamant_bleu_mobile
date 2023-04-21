@@ -24,6 +24,12 @@ const stylesCard = StyleSheet.create({
         fontWeight: '600',
         color: "white",
     },
+    listTitle:{
+      textAlign : 'center',
+      fontWeight : 'bold',
+      fontSize : 25,
+      marginTop : 20,
+    }
 })
 
 

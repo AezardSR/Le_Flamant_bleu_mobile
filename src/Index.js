@@ -54,9 +54,9 @@ function Home() {
         <FontAwesomeIcon icon={faChalkboard} />
       ),
     }} />
-    <Tab.Screen name="Actualités" component={Actualite} options={{
-      title: 'Actualités',
-      tabBarLabel: 'Actualites',
+    <Tab.Screen name="Les actualités" component={Actualite} options={{
+      title: 'Les actualités',
+      tabBarLabel: 'Les actualités',
       tabBarIcon: () => (
         <FontAwesomeIcon icon={faChalkboard} />
       ),
@@ -96,6 +96,8 @@ const index = () => {
         <Stack.Screen name="Cour/Exercice" component={ShowLessonExercice} />
         <Stack.Screen name="Les actualités" component={Actualite} />
         <Stack.Screen name="Actualité" component={ShowActualite} />
+
+
 
 
 

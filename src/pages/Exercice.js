@@ -70,11 +70,11 @@ function Exercice() {
     return(
     <View>
       <View>
-        <Text>Liste des exercices</Text>
+        <Text style={stylesCard.listTitle}>Liste des exercices</Text>
         <Text>Pas d'exercice</Text>
       </View>
       <View>
-        <Text>Liste des exercices</Text>
+        <Text style={stylesCard.listTitle}>Liste des exercices</Text>
         <Text>Pas de leçons</Text>
       </View>
     </View>
@@ -84,7 +84,7 @@ function Exercice() {
   return(
     <ScrollView>
       <View>
-        <Text style={ListExerciceLesson.styleText}>Liste des leçons</Text>
+        <Text style={stylesCard.listTitle}>Liste des leçons</Text>
         {loading ?(
         <View>
           <ActivityIndicator size="large" color="#28abe2"/>
@@ -102,7 +102,7 @@ function Exercice() {
       )}
       </View>
       <View>
-        <Text style={ListExerciceLesson.styleText}>Liste des exercices</Text>
+        <Text style={stylesCard.listTitle}>Liste des exercices</Text>
         {loading ?(
         <View>
           <ActivityIndicator size="large" color="#28abe2"/>

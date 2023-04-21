@@ -2,9 +2,7 @@ import * as React from 'react';
 import { useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
-import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
-import {API_PATH} from "@env";
 import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
 
@@ -12,7 +10,6 @@ function Categorie(){
 
   // etat des composants, on initialise les variables dans un tableau vide au depart
   const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
-  const {token, setToken} = useToken(); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [idCatModul, setIdCatModul] = useState([]); 

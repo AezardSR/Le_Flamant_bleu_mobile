@@ -40,6 +40,15 @@ function Part(){
   const goToExercices = (id) => {
     navigation.navigate('Exercice', {id} )
   }
+
+if(parts.length === 0){
+  return(
+    <View>
+        <Text style={stylesCard.listTitle}>Liste des Parties</Text>
+        <Text>Pas de de partie</Text>
+    </View>
+  )
+}
 return(
   <View>
     {loading ?(

@@ -3,18 +3,16 @@ import { View,Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import stylesCard from '../components/Card';
-import { ApiContext } from '../features/loginAPi/ApiContext';
+import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
 function Actualite(){
-
-  const {requestAPi} = React.useContext(ApiContext); // récupération du token depuis le contexte
+  const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [actualites, setActualites] = useState([]);
   const navigation = useNavigation();
 
-
   const getActualites = () => {
-    requestAPi('/actualites', 'GET', null)
+    requestAPI('/actualites', 'GET', null)
       .then(response => response.json())
       .then(json =>{
         setActualites(json)
@@ -24,7 +22,7 @@ function Actualite(){
         console.error("Erreur Actualites " + error)
       })
   }
-  useEffect(()=>{
+  useEffect(() =>{
     getActualites();
   }, [])
 
@@ -33,24 +31,28 @@ function Actualite(){
   };
   return(
     <View>
-      {loading ?(
-        <View>
-          <ActivityIndicator size="large" color="#28abe2"/>
-        </View>
+    {loading ?(
+      <View>
+        <ActivityIndicator size="large" color="#28abe2"/>
+      </View>
+    ) : (
+      actualites.length > 0 ? (
+        <FlatList
+          data={actualites}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) => (
+            <View style={stylesCard.cardContainer}>
+              <TouchableOpacity onPress={() => goToShowActualites(item)} style={stylesCard.card}>
+                <Text style={stylesCard.cardtitle}>{item.title}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       ) : (
-      <FlatList
-        data={actualites}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({item}) => (
-          <View style={stylesCard.cardContainer}>
-            <TouchableOpacity onPress={() => goToShowActualites(item)} style={stylesCard.card}>
-              <Text style={stylesCard.cardtitle}>{item.title}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
-      )}
-    </View>
+        <Text style={stylesCard.listTitle}>Il n'y a pas d'actualités actuellement</Text>
+      )
+    )}
+  </View>
   );
 }
 export default Actualite;

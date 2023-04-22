@@ -71,6 +71,7 @@ function Categorie(){
           <ActivityIndicator size="large" color="#28abe2"/>
         </View>
       ) : (
+        categories.length > 0 ? (
       <FlatList
         data={filteredCategories}
         keyExtractor={(item) => item.id.toString()}
@@ -82,6 +83,9 @@ function Categorie(){
           </View>
         )}
       />
+        ) : (
+        <Text style={stylesCard.listTitle}>Pas de categorie disponible</Text>
+        )
       )}
     </View>
   );

@@ -1,13 +1,9 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
-import {Text, View, TouchableOpacity,ScrollView, ActivityIndicator, StyleSheet} from 'react-native';
-import useToken from "../features/loginAPi/useToken.js";
+import {Text, View, TouchableOpacity,ScrollView, ActivityIndicator} from 'react-native';
 import stylesCard from '../components/Card';
-import {API_PATH} from "@env";
 import { ApiContext } from '../features/loginAPi/ApiContext.js';
-
-
 
 function Exercice() {
 
@@ -66,20 +62,6 @@ function Exercice() {
   const goToExercice = (filterExercices) => {
     navigation.navigate("Cour/Exercice", {filterExercices})
   }
-  if(filterExercices.length === 0 && filterLessons.length === 0){
-    return(
-    <View>
-      <View>
-        <Text style={stylesCard.listTitle}>Liste des exercices</Text>
-        <Text>Pas d'exercice</Text>
-      </View>
-      <View>
-        <Text style={stylesCard.listTitle}>Liste des exercices</Text>
-        <Text>Pas de leçons</Text>
-      </View>
-    </View>
-    )
-  }
 
   return(
     <ScrollView>
@@ -90,6 +72,7 @@ function Exercice() {
           <ActivityIndicator size="large" color="#28abe2"/>
         </View>
       ) : (
+        filterLessons.length > 0 ? (
         <View>
         {filterLessons.map((item) => (
           <View key={item.id.toString()} style={stylesCard.cardContainer}>
@@ -99,8 +82,13 @@ function Exercice() {
           </View>
         ))}
         </View>
+        ) : (
+          <Text style={stylesCard.listTitle}>Pas de cours disponible</Text>
+        )
       )}
       </View>
+
+
       <View>
         <Text style={stylesCard.listTitle}>Liste des exercices</Text>
         {loading ?(
@@ -108,6 +96,7 @@ function Exercice() {
           <ActivityIndicator size="large" color="#28abe2"/>
         </View>
       ) : (
+        filterExercices.length > 0 ? (
         <View>
         {filterExercices.map((item) => (
           <View key={item.id.toString()} style={stylesCard.cardContainer}>
@@ -117,18 +106,12 @@ function Exercice() {
           </View>
         ))}
         </View>
+        ) : (
+          <Text style={stylesCard.listTitle}>Pas d'exercice disponible</Text>
+        )
       )}
       </View>
     </ScrollView>
   );
 }
-
-const ListExerciceLesson = StyleSheet.create({
-  styleText : {
-    textAlign : 'center',
-    fontWeight : 'bold',
-    fontSize : 25,
-    marginTop : 20,
-  }
-})
 export default Exercice;

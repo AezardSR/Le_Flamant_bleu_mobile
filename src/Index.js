@@ -4,11 +4,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChalkboard, faGraduationCap, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faChalkboard, faGraduationCap, faHouse, faGear } from '@fortawesome/free-solid-svg-icons';
 import {  } from '@fortawesome/free-solid-svg-icons';
 import { ApiContext } from './features/loginAPi/ApiContext.js';
 import TableauBord from './pages/TableauBord.js';
-import Lesson from './pages/Lesson.js';
 import Exercice from './pages/Exercice.js';
 import LoginScreen from './features/loginAPi/LoginScreen.js';
 import logoScreen from './features/loginAPi/logoScreen.js';
@@ -21,6 +20,8 @@ import Part from './pages/Part.js';
 import ShowLessonExercice from './pages/ShowLessonExercice.js';
 import Actualite from './pages/Actualites.js';
 import ShowActualite from './pages/ShowActualites.js';
+import JobsOffers from './pages/Jobsoffers.js';
+import ShowJobsOffers from './pages/showJobsOffers.js';
 
 
 function Home() {
@@ -31,14 +32,6 @@ function Home() {
 
   return(
   <Tab.Navigator initialRouteName='TableauBord'>
-    {/* <Tab.Screen name="Lesson" component={Lesson} options={{
-      title: 'Leçons',
-      tabBarLabel: 'Leçons',
-      tabBarIcon: () => (
-        <FontAwesomeIcon icon={faGraduationCap} />
-        ),
-      }} /> */}
-
       <Tab.Screen name="TableauBord" component={TableauBord} options={{
         title: 'Bienvenu '+userInfo.firstname,
         tabBarLabel: 'Tableau de bord',
@@ -51,22 +44,15 @@ function Home() {
       title: 'Langage',
       tabBarLabel: 'Cours',
       tabBarIcon: () => (
-        <FontAwesomeIcon icon={faChalkboard} />
-      ),
-    }} />
-    <Tab.Screen name="Les actualités" component={Actualite} options={{
-      title: 'Les actualités',
-      tabBarLabel: 'Les actualités',
-      tabBarIcon: () => (
-        <FontAwesomeIcon icon={faChalkboard} />
+        <FontAwesomeIcon icon={faGraduationCap} />
       ),
     }} />
     <Tab.Screen name="UserProfil" component={UserProfil} options={{
           title: 'Profil de '+userInfo.firstname,
           tabBarLabel: 'Profil',
-          // tabBarIcon: () => (
-          //   // <FontAwesomeIcon icon={/*faGear*/} />
-          // ),
+          tabBarIcon: () => (
+            <FontAwesomeIcon icon={faGear} />
+          ),
         }} />
   </Tab.Navigator>
   )
@@ -82,6 +68,7 @@ const index = () => {
   return(
   <NavigationContainer>
     <Stack.Navigator>
+      
         <Stack.Screen name="logo" component={logoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
@@ -96,10 +83,8 @@ const index = () => {
         <Stack.Screen name="Cour/Exercice" component={ShowLessonExercice} />
         <Stack.Screen name="Les actualités" component={Actualite} />
         <Stack.Screen name="Actualité" component={ShowActualite} />
-
-
-
-
+        <Stack.Screen name="Les offres d'emploies" component={JobsOffers} />
+        <Stack.Screen name="Offre d'emploi" component={ShowJobsOffers} />
 
     </Stack.Navigator>
   </NavigationContainer>

@@ -39,14 +39,14 @@ export default function TableauBord() {
             </TouchableOpacity>
         </SafeAreaView>
         
-        <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Les offres d'emploies")}>
           <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
             <Image source={require('../assets/pole_emploi.jpg')} style={{width: '80%', height: 200}} />
             <Text style={styles.nameBlock}>Annonce de jobs</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Lesson')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Les actualités')}>
           <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
             <Image source={require('../assets/le_monde.webp')} style={{width: '80%', height: 200}} />
             <Text style={styles.nameBlock}>Actualités</Text>

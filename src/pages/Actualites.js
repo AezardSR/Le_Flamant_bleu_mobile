@@ -49,7 +49,7 @@ function Actualite(){
           )}
         />
       ) : (
-        <Text style={stylesCard.listTitle}>Il n'y a pas d'actualités actuellement</Text>
+        <Text style={stylesCard.listTitle}>Pas d'actualités diponible</Text>
       )
     )}
   </View>

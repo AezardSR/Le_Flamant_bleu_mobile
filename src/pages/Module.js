@@ -2,7 +2,6 @@ import * as React from 'react';
 import { View,Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import useToken from "../features/loginAPi/useToken.js";
 import stylesCard from '../components/Card';
 import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
@@ -39,6 +38,7 @@ function Module(){
           <ActivityIndicator size="large" color="#28abe2"/>
         </View>
       ) : (
+        modules.length > 0 ? (
       <FlatList
         data={modules}
         keyExtractor={(item) => item.id.toString()}
@@ -50,6 +50,9 @@ function Module(){
           </View>
         )}
       />
+      ) : (
+      <Text style={stylesCard.listTitle}>Pas de module disponible</Text>
+      )
       )}
     </View>
   );

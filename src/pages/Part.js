@@ -41,21 +41,14 @@ function Part(){
     navigation.navigate('Exercice', {id} )
   }
 
-if(parts.length === 0){
-  return(
-    <View>
-        <Text style={stylesCard.listTitle}>Liste des Parties</Text>
-        <Text>Pas de de partie</Text>
-    </View>
-  )
-}
 return(
   <View>
-    {loading ?(
+    {loading ? (
         <View>
           <ActivityIndicator size="large" color="#28abe2"/>
         </View>
       ) : (
+      parts.length > 0 ? (
     <FlatList
       data={filtered}
       keyExtractor={(item) => item.id.toString()}
@@ -67,6 +60,9 @@ return(
         </View>
       )}
     />
+      ) : (
+        <Text style={stylesCard.listTitle}>Pas de partie disponible</Text>
+      )
     )}
   </View>
 );

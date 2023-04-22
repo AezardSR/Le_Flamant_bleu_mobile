@@ -6,6 +6,9 @@ import moment from "moment";
 import "moment/min/locales";
 import ImagePlannig from '../assets/planningbanniere.png';
 import { ApiContext } from '../features/loginAPi/ApiContext';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+import { faNewspaper, faPaste} from '@fortawesome/free-solid-svg-icons';
 
 
 export default function TableauBord() {
@@ -40,20 +43,18 @@ export default function TableauBord() {
         </SafeAreaView>
         
         <TouchableOpacity onPress={() => navigation.navigate("Les offres d'emploies")}>
-          <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
-            <Image source={require('../assets/pole_emploi.jpg')} style={{width: '80%', height: 200}} />
-            <Text style={styles.nameBlock}>Annonce de jobs</Text>
+        <View style={styles.backgroundPlanning}>
+          <FontAwesomeIcon icon={faPaste} style={{color:"white"}} size={45} />
+          <Text style={styles.nameBlock}>Offre d'emploi</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Les actualités')}>
-          <View style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
-            <Image source={require('../assets/le_monde.webp')} style={{width: '80%', height: 200}} />
-            <Text style={styles.nameBlock}>Actualités</Text>
-          </View>
+        <View style={styles.backgroundPlanning}>
+          <FontAwesomeIcon icon={faNewspaper} style={{color:"white"}} size={45} />
+          <Text style={styles.nameBlock}>Actualités</Text>
+        </View>
         </TouchableOpacity>
-        {/* <Button title="Go to lessons" onPress={() => this.props.navigation.navigate('Lesson')} />
-        <Button title="Go to exercices" onPress={() => this.props.navigation.navigate('Exercice')} /> */}
       </View>
     );
 }

@@ -18,7 +18,7 @@ function Categorie(){
   const route = useRoute(); // sert a recuprerer l'id du module
   const idModule = parseInt(route.params.id); // recuperation de l'ID du module sur lequelle on a cliqué
 
-  // recuperation des données de la table categorie
+  // recuperation des données de la table categorie via la fonction requestAPI
   const getCategories = () => {
     requestAPI('/categories', 'GET', null)
      .then(response => response.json())
@@ -38,13 +38,13 @@ function Categorie(){
      .then(json =>{
        setIdCatModul(json)
        setLoading(false)
-       console.log(categories)
      })
      .catch(error => {
        console.error("Erreur modulecat" + error)
      })
  }
 
+  // a chaque changement d'etat ( rendu du composant) , les fetchs s'execute
   useEffect(() => {
     getCategories();
     getIdCatModul();
@@ -61,9 +61,15 @@ function Categorie(){
     setFilteredCategories(filteredCategories);
   }, [idCatModul, idModule, categories]);
 
+ // fonction qui permet de se rentre dans le composant Parts, il envoie l'ID selectionné
+//  l'ID permet d'effectuer un filtrage dans le prochain composant
   const goToPart =(id) => {
     navigation.navigate('Intitulé des parties', {id});
   }
+
+// si le fetch des données est trop long, on a un spinner d'attente
+// apres resultat du fetch, si on a minimum une entrée dans le tableau, on affiche les données via une flatlist
+// si aucune donnée dans le tableau, on affiche un message
   return(
     <View>
       {loading ? (

@@ -46,7 +46,7 @@ const Plannig = (props) => {
               )}
           />
 
-          <Button title="Ajout" onPress={() => navigation.navigate('AddAppointments')}/>
+          {/* <Button title="Ajout" onPress={() => navigation.navigate('AddAppointments')}/> */}
       </SafeAreaView>
     );
 

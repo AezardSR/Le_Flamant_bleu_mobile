@@ -7,6 +7,7 @@ import { ApiContext } from '../features/loginAPi/ApiContext.js';
 
 function Exercice() {
 
+  // etat des composants, on initialise les variables dans un tableau vide au depart
   const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [exercices, setExercices] = useState([]);
@@ -15,8 +16,9 @@ function Exercice() {
   const [filterLessons, setfilterLessons] = useState([]);
   const route = useRoute();
   const navigation = useNavigation();
-  const idPart = parseInt(route.params.id);
+  const idPart = parseInt(route.params.id); // recuperation de l'ID de la parie sur laquelle on a cliqué
 
+  // recuperation des données de la table exercices via la fonction requestAPI
   const getExercices = () => {
     requestAPI('/exercices', 'GET', null)
      .then(response => response.json())
@@ -28,6 +30,8 @@ function Exercice() {
        console.error("Erreur Exercices " + error)
      })
  }
+
+  // recuperation des données de la table classes via la fonction requestAPI
   const getLessons = () => {
     requestAPI('/lessons', 'GET', null)
      .then(response => response.json())
@@ -39,12 +43,13 @@ function Exercice() {
        console.error("Erreur Lessons " + error)
      })
  }
-
+  // a chaque changement d'etat ( rendu du composant) , le fetch s'execute
   useEffect(() =>{
     getExercices();
     getLessons();
   },[]);
 
+// J'effectue un filtrage grace l'ID parts que j'ai pu recuperer
   useEffect(() => {
     const filterExercices = exercices.filter((item) => item.parts_id === idPart);
     setfilterExercices(filterExercices)
@@ -55,6 +60,8 @@ function Exercice() {
     setfilterLessons(filterLessons)
   }, [lessons, idPart])
 
+
+   // fonction qui permet de se rentre dans le composant ShowLessonExercice, il envoie toutes les données
   const goToLesson = (filterLessons) => {
     navigation.navigate("Cour/Exercice", {filterLessons}
     )
@@ -63,6 +70,11 @@ function Exercice() {
     navigation.navigate("Cour/Exercice", {filterExercices})
   }
 
+
+// si le fetch des données est trop long, on a un spinner d'attente
+// apres resultat du fetch, si on a minimum une entrée dans le tableau, on affiche les données via une flatlist
+// si aucune donnée dans le tableau, on affiche un message
+// on a ici 2 listes car on affiche les cours et les exercices en meme temps
   return(
     <ScrollView>
       <View>
@@ -83,7 +95,7 @@ function Exercice() {
         ))}
         </View>
         ) : (
-          <Text style={stylesCard.listTitle}>Pas de cours disponible</Text>
+          <Text style={stylesCard.titleNodata}>Pas de cours disponible</Text>
         )
       )}
       </View>
@@ -107,7 +119,7 @@ function Exercice() {
         ))}
         </View>
         ) : (
-          <Text style={stylesCard.listTitle}>Pas d'exercice disponible</Text>
+          <Text style={stylesCard.titleNodata}>Pas d'exercice disponible</Text>
         )
       )}
       </View>

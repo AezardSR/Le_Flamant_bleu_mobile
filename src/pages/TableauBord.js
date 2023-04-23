@@ -42,7 +42,7 @@ export default function TableauBord() {
             </TouchableOpacity>
         </SafeAreaView>
         
-        <TouchableOpacity onPress={() => navigation.navigate("Les offres d'emploies")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Les offres d'emplois")}>
         <View style={styles.backgroundPlanning}>
           <FontAwesomeIcon icon={faPaste} style={{color:"white"}} size={45} />
           <Text style={styles.nameBlock}>Offre d'emploi</Text>

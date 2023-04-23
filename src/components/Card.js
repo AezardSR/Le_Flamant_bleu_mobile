@@ -5,15 +5,13 @@ const stylesCard = StyleSheet.create({
     flex: 1,
     margin : 15,
     alignItems: 'center', // centre horizontalement
-    justifyContent: 'center', // centre verticalement
-    
-        
+    justifyContent: 'center', // centre verticalement 
     },
     card: {
         height: 100,
         width: '100%',
         margin : 10,
-        backgroundColor: '#28abe2',
+        backgroundColor: '#194766',
         borderRadius : 6,
         alignItems: 'center', // centre horizontalement
         justifyContent: 'center', // centre verticalement
@@ -28,6 +26,11 @@ const stylesCard = StyleSheet.create({
       textAlign : 'center',
       fontWeight : 'bold',
       fontSize : 25,
+      marginTop : 20,
+    },
+    titleNodata :{
+      textAlign: 'center',
+      fontSize: 18,
       marginTop : 20,
     }
 })

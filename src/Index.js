@@ -83,7 +83,7 @@ const index = () => {
         <Stack.Screen name="Cour/Exercice" component={ShowLessonExercice} />
         <Stack.Screen name="Les actualités" component={Actualite} />
         <Stack.Screen name="Actualité" component={ShowActualite} />
-        <Stack.Screen name="Les offres d'emploies" component={JobsOffers} />
+        <Stack.Screen name="Les offres d'emplois" component={JobsOffers} />
         <Stack.Screen name="Offre d'emploi" component={ShowJobsOffers} />
 
     </Stack.Navigator>

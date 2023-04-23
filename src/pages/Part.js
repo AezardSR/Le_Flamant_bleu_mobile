@@ -18,7 +18,7 @@ function Part(){
   const navigation = useNavigation();
   const idCategorie = parseInt(route.params.id); // recuperation de l'ID de la categorie sur lequelle on a cliqué
 
-  // recuperation des données de la table categorie via la fonction requestAPI
+  // recuperation des données de la table parts via la fonction requestAPI
   const getParts = () => {
     requestAPI('/parts', 'GET', null)
      .then(response => response.json())

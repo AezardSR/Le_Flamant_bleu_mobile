@@ -1,12 +1,15 @@
-import {React, useEffect, useState} from 'react';
+import * as React from 'react';
+import { useEffect, useState} from 'react';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {Text, FlatList, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import stylesCard from '../components/Card';
-import {API_PATH} from "@env";
+import { ApiContext } from '../features/loginAPi/ApiContext.js';
+
 
 function Categorie(){
 
   // etat des composants, on initialise les variables dans un tableau vide au depart
+  const {requestAPI} = React.useContext(ApiContext); // récupération du token depuis le contexte
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [idCatModul, setIdCatModul] = useState([]); 
@@ -15,30 +18,33 @@ function Categorie(){
   const route = useRoute(); // sert a recuprerer l'id du module
   const idModule = parseInt(route.params.id); // recuperation de l'ID du module sur lequelle on a cliqué
 
-  // recuperation des données de la table categorie
-  const getCategories = async () => {
-    try {
-      const response = await fetch(`${API_PATH}/categories`);
-      const json = await response.json();
-      setCategories(json);
-      setLoading(false)
-    } catch (error) {
-      console.error("erreur categorie   " + error);
-    }
-  };
-  
+  // recuperation des données de la table categorie via la fonction requestAPI
+  const getCategories = () => {
+    requestAPI('/categories', 'GET', null)
+     .then(response => response.json())
+     .then(json =>{
+       setCategories(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur Categories " + error)
+     })
+ }
 
   // recuperation des données de la table modulescategories
-  const getIdCatModul = async () => {
-    try {
-    const response = await fetch(`${API_PATH}/module-categories`);
-    const json = await response.json();
-    setIdCatModul(json);
-    } catch(error){
-      console.error("erreur idcat   " + error);
-    }
-  };
+  const getIdCatModul = () => {
+    requestAPI('/module-categories', 'GET', null)
+     .then(response => response.json())
+     .then(json =>{
+       setIdCatModul(json)
+       setLoading(false)
+     })
+     .catch(error => {
+       console.error("Erreur modulecat" + error)
+     })
+ }
 
+  // a chaque changement d'etat ( rendu du composant) , les fetchs s'execute
   useEffect(() => {
     getCategories();
     getIdCatModul();
@@ -55,9 +61,15 @@ function Categorie(){
     setFilteredCategories(filteredCategories);
   }, [idCatModul, idModule, categories]);
 
+ // fonction qui permet de se rentre dans le composant Parts, il envoie l'ID selectionné
+//  l'ID permet d'effectuer un filtrage dans le prochain composant
   const goToPart =(id) => {
     navigation.navigate('Intitulé des parties', {id});
   }
+
+// si le fetch des données est trop long, on a un spinner d'attente
+// apres resultat du fetch, si on a minimum une entrée dans le tableau, on affiche les données via une flatlist
+// si aucune donnée dans le tableau, on affiche un message
   return(
     <View>
       {loading ? (
@@ -65,6 +77,7 @@ function Categorie(){
           <ActivityIndicator size="large" color="#28abe2"/>
         </View>
       ) : (
+        categories.length > 0 ? (
       <FlatList
         data={filteredCategories}
         keyExtractor={(item) => item.id.toString()}
@@ -76,6 +89,9 @@ function Categorie(){
           </View>
         )}
       />
+        ) : (
+        <Text style={stylesCard.listTitle}>Pas de categorie disponible</Text>
+        )
       )}
     </View>
   );
